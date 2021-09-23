@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zig Zag Text Encryption</title>
+    <link rel="stylesheet" href="./css/encryption-css.css"> <!-- Main style -->
+</head>
+<body>
+    <img title="Enkripsi Dekripsi" id="logo-utama" alt="Enkripsi Dekripsi" src="">
+    <div id="halaman_utama">
+        <div id="pengaturan">
+            <div class="pengaturan-container"> <!-- Enkripsi / Dekripsi -->
+                <div class="pengaturan-keterangan">
+                    Enkripsi / Dekripsi
+                </div>
+                <div class="pengaturan-input">
+                    <select id="tempatStatusEnkripsi" onchange="tempatStatusEnkripsi_ValueChanged()" ondblclick="tempatStatusEnkripsi_DoubleClick()">
+                        <option value="enkripsi">Enkripsi</option>
+                        <option value="dekripsi">Dekripsi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="pengaturan-container"> <!-- Password -->
+                <div class="pengaturan-keterangan">
+                    Password
+                </div>
+                <div class="pengaturan-input">
+                    <input type="text" id="tempatPassword" oninput="tempatPassword_TextChanged()" placeholder="password (opsional)" maxlength="20" spellcheck="false">
+                </div>
+            </div>
+            <div class="pengaturan-container"> <!-- Jenis Cermin -->
+                <div class="pengaturan-keterangan">
+                    Jenis Cermin
+                </div>
+                <div class="pengaturan-input">
+                    <select id="tempatJenisCermin" onchange="tempatJenisCermin_ValueChanged()">
+                    </select>
+                </div>
+            </div>
+            <div class="pengaturan-container"> <!-- Jumlah Refleksi -->
+                <div class="pengaturan-keterangan">
+                    Jumlah Refleksi
+                </div>
+                <div class="pengaturan-input">
+                    <select id="tempatJumlahRefleksi" onchange="tempatJumlahRefleksi_ValueChanged()">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="tempatInput-container">
+            <input type="text" class="input" id="tempatInput" placeholder="Masukkan teks anda" oninput="tempatInput_TextChanged()" spellcheck="false">
+        </div>
+        <div id="tempatOutput-container">
+            <input type="text" class="output" id="tempatOutput" placeholder="Hasil" spellcheck="false" disabled="true">
+            <span id="tempatInfo"></span>
+        </div>
+    </div>
+    <script src="./js/encryption-js.js"></script> <!-- Engine -->
+    <script src="./js/encryption-base64-js.js"></script> <!-- Base64 Img -->
+</body>
+</html>
