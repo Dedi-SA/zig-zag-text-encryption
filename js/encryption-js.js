@@ -1,32 +1,23 @@
-// Kamis, 9 September 2021 | 21.54 WIB
-
+// Tanggal mulai versi pertama : Kamis, 9 September 2021 | 21.54 WIB
 
     // Ini kunci
-    const KUNCI = [...'PrjI4YRobWv0h8eqLJuG1nDA7N9VcXtOmi zfxUa6TEQ2lKHFSgykMs3dwBp5CZ']; // Bisa dimodifikasi sesuai selera, namun dengan mematuhi 3 poin berikut
+    const KUNCI = [...'Pr#j["I4YRo.bW;^$v0_h8e`qL}J?u<G1%n]DA7:)N9~Vc-X*tOmi zfx=U{a&6T+EQ\'!2lK|HF>@Sgyk,Ms3dw/Bp(5CZ']; // Bisa dimodifikasi sesuai selera, namun dengan mematuhi 3 poin berikut
     /*
         Ketentuan :
-            1. KUNCI merupakan kumpulan dari 63 karakter berbeda, yang mana tiap karakter ditulis hanya 1 kali
-            2. Di dalamnya terdiri atas 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, dan 1 karakter spasi
+            1. KUNCI merupakan kumpulan dari 94 karakter berbeda, yang mana tiap karakter ditulis hanya 1 kali
+            2. Di dalamnya terdiri atas 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 simbol serta tanda baca (semua jenis karakter pada keyboard KECUALI garis miring ke kiri)
             3. Pengurutan tiap karakter tersebut adalah bebas/acak sesuai kehendak, yang mana tiap urutannya akan mempengaruhi hasil enkripsi-dekripsi
     */
 
-    const teksInput_yangDiizinkan = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ', // Jangan diedit !!
-          hurufDanAngka = teksInput_yangDiizinkan.slice(0, -1), // Jangan diedit !!
-          hurufKapital = teksInput_yangDiizinkan.slice(0, 25), // Jangan diedit !!
+    const KUNCI_diurutkan = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ `~!@#$%^&*()-_=+[]{}|;:\'",.<>/?', // Jangan diedit !!
+          hurufDanAngka = KUNCI_diurutkan.slice(0, KUNCI_diurutkan.indexOf('Z') + 1), // Jangan diedit !!
+          hurufKapital = KUNCI_diurutkan.slice(KUNCI_diurutkan.indexOf('A'), KUNCI_diurutkan.indexOf('Z') + 1), // Jangan diedit !!
+          angka = KUNCI_diurutkan.slice(0, 9); // Jangan diedit !!
 
           CERMIN = [ // Array CERMIN : Setiap elemen dalam array CERMIN boleh dimodifikasi dengan mematuhi beberapa aturan di bawah
-                [...'maHM4frVEhBpk5TDKXIOCb9gsvl18qj3Y6W0AUuzJcSiFNw2ZQ7tnyGeL dxPoR'], // [0]  A
-                [...'maHVhBDKXgsv3jY6WuzRIcStnyEGe dxPoLFNw2ZQi70JAl18qOCbU9pkTM4fr5'], // [1]  B
-                [...'TMbU918qi70oFyEGe dWvn3jBDKLXsmaVNY6guzRIcStHxPw2ZQJlhOCpAk4fr5'], // [2]  C
-                [...'JlhOTw2ZQCpAkbU91qyHGe igu70MxPo8fraVFsIcStLNY6zBEn3j4dWmXD5KRv'], // [3]  D
-                [...'IcG2ZQCNY6u1rtLqxzWmpBEn3j4dsaXD5eARv7o8f igOJl0MShKyHPbUw9TkVF'], // [4]  E
-                [...'PUw9TkVJlmpBE1rtbCNY65eFARvu7of igOxZQyHLq8zWn3j4dsXDIacG2M0ShK'], // [5]  F
-                [...'pZQyHL5TIacG2BE1rk igO8zdseFKWn3j4tbVJXDUCNlxM90hmY6SqRvu7ofPwA'], // [6]  G
-                [...'rkY6j2WCNpZhDUyHL5TOEAlmF1Qn3BsxS90zdqRvu7eo igMf4tb8IacGPwKVJX'], // [7]  H
-                [...'qWzMKvSu7eo rpigAf1NcGPwmLOEdVHXUykY2Z6FR5Tx90ClhDs4tb8jIa3BQnJ'], // [8]  I
-                [...'gykY2Z6NcGPwFR5Afn1eo LOEdmVhDs4tb8a3BIQJHXUqjWzMKvSu7rpiTx90Cl'], // [9]  J
-                [...'N1XqPcM7JxTOjoBzFgSlvQ9teApI0wGVb3n5u DWhkYHsLifR4C8amZ6Edy2UKr'], // [10] K
-                [...'rEa4iAuXJNm7bQUvd1pOCVzRhsWcFnTY6qHPLxD3j8oIftwGB0Mk9eS y5lZKg2']  // [11] L
+                [...'w&{a0~<h3r#U;P8=-Do^eH1M@Am/QO_9xtjLF.C7?]X\'qIc+2f%v}k:Y`>bVp J*RN)zn!"ZBuE|4[Ws(TKy$G6i,dSlg5'], // [0] A
+                [...'>Qk[Go"1#<y5)A3Lf?mv$TJX aN-zt}8O=%4~RhD/^|YM!nHUr*,cB7u2j\'gl&_qVbx`9]CW:iK;{sFPSI+w@6eZ0.(pEd'], // [1] B
+                [...'Jt{Ph5,Sy(p#DUoLzcY72~F\'NwQ?]AHk<3bEre@_;x"n%6Tu)R1M=. K9^fW!Bq:j}$Xd-[lI0g8&vZs`OG4/mi*>CaV|+'], // [2] C
                 /*
                     Aturan :
                         1. Semua ketentuan yang berlaku untuk variabel KUNCI di atas, juga berlaku untuk setiap elemen di dalam array CERMIN
@@ -35,7 +26,7 @@
                         
                         3. Seluruh elemen di dalam array CERMIN bersifat unik ( TIDAK boleh ada yang sama satu sama lain )
 
-                        4. Tiap elemen terdiri atas 63 karakter dengan urutan yang berbeda-beda
+                        4. Tiap elemen terdiri atas 94 karakter dengan urutan yang berbeda-beda
                            dan TIDAK BOLEH SAMA dengan urutan karakter yang ada pada variabel KUNCI
 
                         5. Jumlah elemen dalam array CERMIN boleh ditambah atau dikurangi secara bebas dengan tetap
@@ -46,14 +37,13 @@
 
     const get = {
         id: karakter => { // Untuk mendapatkan nomor indeks dari string yang dikirim (nomor indeks sesuai urutan pada KUNCI)
-            if (typeof karakter === 'string' && karakter.length === 1)
+            if (is.str(karakter) && karakter.length === 1)
                 return KUNCI.indexOf(karakter, 0);
             else {
-                console.log('--------');
-                console.log('Kesalahan : Fungsi get.id() menerima parameter yang tidak valid');
+                console.log('Kesalahan : Fungsi get.id() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof karakter);
 
-                if (typeof karakter === 'string') { // Jika string
+                if (is.str(karakter)) { // Jika string
                     console.log('String : ' + ( karakter.length < 1 ? '<-kosong->' : (karakter === ' ' ? '<-spasi->' : karakter) ));
                     console.log('Panjang string : ' + karakter.length);
                 }
@@ -61,28 +51,27 @@
                     console.log('Nilai : ' + karakter);
                 }
 
-                console.log('--------');
+                console.log('')
             }
         },
         cermin: () => { // return : Array
             return CERMIN[+tempatJenisCermin.value]; // Jenis cermin yang akan dipakai
         },
         nilaiCermin: str => {
-            if (typeof str === 'string' && str.length === 1) {
+            if (is.str(str) && str.length === 1) {
                 
                 if (get.statusEnkripsi()) { // Jika Enkripsi
-                    return get.cermin()[teksInput_yangDiizinkan.indexOf(str)];
+                    return get.cermin()[KUNCI_diurutkan.indexOf(str)];
                 }
                 else { // Jika Dekripsi
-                    return teksInput_yangDiizinkan[get.cermin().indexOf(str)];
+                    return KUNCI_diurutkan[get.cermin().indexOf(str)];
                 }
             }
             else {
-                console.log('--------');
-                console.log('Kesalahan : Fungsi get.id() menerima parameter yang tidak valid');
+                console.log('Kesalahan : Fungsi get.id() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof str);
 
-                if (typeof str === 'string') { // Jika string
+                if (is.str(str)) { // Jika string
                     console.log('String : ' + ( str.length < 1 ? '<-kosong->' : (str === ' ' ? '<-spasi->' : str) ));
                     console.log('Panjang string : ' + str.length);
                 }
@@ -90,8 +79,7 @@
                     console.log('Nilai : ' + str);
                 }
 
-                console.log('--------');
-                console.log('Tempat input dan output dikosongkan....');
+                console.log('');
                 tempatInput.value = '';
                 tempatOutput.value = '';
             }
@@ -114,7 +102,7 @@
                 return [password.slice(sliceValue).map(e => get.id(e)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e)).reduce((a,b) => a+b,0)];
             }
         },
-        password_concatenateValue: password => {
+        concatenateValue: password => {
             /*
                 Tiap karakter akan di-'convert' menjadi nomor indeksnya masing-masing, kemudian digabung, lalu diconvert menjadi angka
 
@@ -156,18 +144,17 @@
             else if (namaElemen.startsWith('#'))
                 return document.getElementById(namaElemen.slice(1));
             else
-                console.log('Kesalahan : Fungsi get.elemen() menerima parameter yang tidak');
+                console.log('Kesalahan : Fungsi get.elemen() menerima argumen yang tidak valid\n ');
         },
         restOfChars: teksPertama => {
-            if (typeof teksPertama === 'string' && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
+            if (is.str(teksPertama) && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
                 return [...KUNCI.slice(get.id(teksPertama)), ...KUNCI.slice(0, get.id(teksPertama))];
             }
             else {
-                console.log('--------');
-                console.log('Kesalahan : Fungsi get.restOfChars() menerima parameter yang tidak valid');
+                console.log('Kesalahan : Fungsi get.restOfChars() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof teksPertama);
 
-                if (typeof teksPertama === 'string') { // Jika string
+                if (is.str(teksPertama)) { // Jika string
                     console.log('String : ' + ( teksPertama.length < 1 ? '<-kosong->' : (teksPertama === ' ' ? '<-spasi->' : teksPertama) ));
                     console.log('Panjang string : ' + teksPertama.length);
                 }
@@ -175,11 +162,19 @@
                     console.log('Nilai : ' + teksPertama);
                 }
 
-                console.log('--------');
-                console.log('Tempat input dan output dibersihkan....');
+                console.log('');
                 tempatInput.value = '';
                 tempatOutput.value = '';
             }
+        },
+        karakterHilang: cermin => { // Jika karakter yang ada pada cermin kurang dari jumlah normal, maka fungsi ini dapat dipanggil untuk melihat 
+            let temp = [];
+            KUNCI.forEach((e, i) => {
+                if (!cermin.includes(e))
+                    temp.push(e)
+            });
+
+            console.log('Karakter yang hilang : ' + temp);
         },
         fibonacci: (nilai_A, nilai_B, jumlah_yangDiinginkan) => {
             // Berfungsi untuk mendapatkan Deret Fibonacci dalam array
@@ -200,11 +195,47 @@
 
     // Kumpulan fungsi yang menghasilkan nilai boolean
     is = {
+        str: str => {
+            return typeof str === 'string';
+        },
+        valid_KUNCI: () => {
+            if (Array.isArray(KUNCI)) {
+                let KUNCI_temp = [...KUNCI];
+                return KUNCI_temp.length === bersihkan_duplikat(KUNCI_temp).length && KUNCI_temp.every(e => is.str(e));
+            }
+            else
+                return false;
+        },
         valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
             let cermin_diFilter           = get.cermin().filter(e => KUNCI.includes(e)),
-                cermin_tanpaPengulangan   = new Set(cermin_diFilter);
+                cermin_tanpaPengulangan   = bersihkan_duplikat(cermin_diFilter);
 
-            return KUNCI.length === (get.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.size) / 3;
+            return KUNCI.length === (get.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
+        },
+        loopSTR: (str, char) => { // Mengecek apakah di dalam suatu string hanya terdapat satu jenis karakter
+            if (is.str(str)) {
+                if (is.str(char) && char.length > 0) { // Jika char merupakan string yang tidak kosong
+                    return str.length > 1 && str.split(char).join('').length === 0;
+                }
+                else { // Jika char bukan string / char adalah string tapi kosong
+                    str = [...str];
+                    let pemilahan = new Set(str);
+                    return str.length > 1 && pemilahan.size === 1;
+                }
+            }
+            else
+                return false;
+        }
+    },
+
+    bersihkan_duplikat = arr => {
+        if (Array.isArray(arr)) {
+            let temp = new Set(arr)
+            return [...temp];
+        }
+        else {
+            console.log('Kesalahan : Fungsi bersihkan_duplikat() menerima argumen yang tidak valid\n ');
+            return [];
         }
     },
 
@@ -221,23 +252,54 @@
         }
     },
 
-    // Tahap 1 : Memulai proses enkripsi jika memenuhi syarat
+    // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
     mulaiProses = () => {
-        if (tempatInput.value.length > 0 && is.valid_CERMIN())
+        let statusValidKunci  = is.valid_KUNCI();
+        let statusValidCermin = is.valid_CERMIN();
+
+        if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
             tempatOutput.value = pemotonganString(tempatInput.value);
         else {
             tempatInput.value = '';
             tempatOutput.value = '';
 
-            if (!is.valid_CERMIN()) {
+            if (!statusValidKunci) { // Jika variabel KUNCI tidak valid
+                if (Array.isArray(KUNCI)) {
+                    console.log('Kesalahan : KUNCI tidak valid');
+                    console.log('Jika anda meng-edit KUNCI, harus memenuhi 3 syarat : ');
+                    console.log('1. Kunci harus berupa array');
+                    console.log('3. Di dalamnya terdapat 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 karakter simbol serta tanda baca');
+                    console.log('4. Tiap elemen bersifat unik / tidak boleh ditulis dua kali');
+                }
+                else { // Jika KUNCI bukan array
+                    console.log('Kesalahan : Variabel KUNCI harus berupa Array');
+                    let jenis;
+                    if (is.str(KUNCI)) {
+                        jenis = 'String';
+                    } else if (typeof KUNCI === 'object') {
+                        jenis = 'Objek';
+                    } else if (typeof KUNCI === 'number' && !isNaN(KUNCI)) {
+                        jenis = 'Angka';
+                    } else if (typeof KUNCI === 'number' && isNaN(KUNCI)) {
+                        jenis = 'NaN';
+                    } else {
+                        jenis = typeof KUNCI;
+                    }
+
+                    console.log('Jenis variabel KUNCI : ' + jenis);
+                }
+                console.log('');
+            }
+            else if (!statusValidCermin) { // Jika cermin yang digunakan tidak valid
                 if (Array.isArray(get.cermin())) {
                     console.log('Kesalahan : Jenis cermin yang digunakan tidak valid, silahkan gunakan yang lain atau perbaiki kode');
                     console.log('Jenis cermin : ' + hurufKapital[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
                 }
                 else {
-                    console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 63 karakter di dalamnya');
+                    console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 94 karakter di dalamnya');
                     console.log('Cermin yang anda gunakan : ' + typeof get.cermin());
                 }
+                console.log('');
             }
         }
 
@@ -246,13 +308,14 @@
     
     // Tahap 2 : Mem-backup tanda baca
     pemotonganString = teksAsli => {
-        teksAsli = [...teksAsli];
+        teksAsli = [...teksAsli]; // Teks asli dipecah menjadi array
 
         // Hanya string yang terdapat pada variabel KUNCI yang akan diroses
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
         if (teksAsli.filter(e => KUNCI.includes(e)).length > 0) {
             let tandaBaca              = [],
-                jumlahMaksimal_perBlok = 43 - Math.round(get.password().length / 2);
+                jumlahMaksimal_perBlok = 43 - Math.ceil(get.password().length / 2),
+                jumlahEnkripsi         = Math.ceil(get.password().length === 0 ? 1 : get.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
             teksAsli.forEach((e, i) => {
@@ -262,42 +325,75 @@
             });
             teksAsli = teksAsli.filter(e => KUNCI.includes(e));
 
-            // 2.2 (1) : Cermin_enkripsi
+            // 2.2 (1) : Jika enkripsi
             if (get.statusEnkripsi()) {
-                let jumlahRefleksi = tempatJumlahRefleksi.value + 1;
-
+                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + get.id(get.elemen('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
-                    teksAsli = teksAsli.map(e => get.nilaiCermin(e));
+                    teksAsli = teksAsli.map(e => get.nilaiCermin(e)); // Pencerminan
                     jumlahRefleksi--;
                 }
-            }
 
+                teksAsli = teksAsli.reverse(); // Pembalik
+
+                if (teksAsli.length > 1){
+                    // Substitusi belakang-depan
+                    teksAsli = teksAsli.length === 1 ? teksAsli : teksAsli.slice(Math.ceil(teksAsli.length / 2)).concat( teksAsli.slice(0, Math.ceil(teksAsli.length / 2)) );
+
+                    let batas_perulangan = teksAsli.length % 2 === 1 ? teksAsli.length - 1 : teksAsli.length,
+                        temp;
+                    for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
+                        temp          = teksAsli[i];
+                        teksAsli[i]   = teksAsli[i+1];
+                        teksAsli[i+1] = temp;
+                    }
+                }
+            }
+            
             // 2.3 : Enkripsi - Dekripsi
             let hasil;
-            if (teksAsli.length <= jumlahMaksimal_perBlok) {
-                hasil = penggeseranVertikal(teksAsli, 0);
+            if (teksAsli.length <= jumlahMaksimal_perBlok) { // Jika panjang string input kurang dari jumlahMaksimal_perBlok
+                for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
+                    hasil = penggeseranVertikal(teksAsli, 0 + id_enkripsi); // hasil return : array[str, str, ....]
+                }
             }
             else {
                 let teksTerpecah = [];
-                    jumlahMaksimalTeksTerpecah = Math.floor(teksAsli.length / jumlahMaksimal_perBlok) + (teksAsli % jumlahMaksimal_perBlok === 0 ? 0 : 1);
-                while (teksTerpecah.length !== jumlahMaksimalTeksTerpecah) {
-                    teksTerpecah.push(teksAsli.slice(0, jumlahMaksimal_perBlok));
-                    teksAsli = teksAsli.slice(jumlahMaksimal_perBlok);
-                }
+                    jumlahMaksimalTeksTerpecah = Math.floor(teksAsli.length / jumlahMaksimal_perBlok) + (teksAsli % jumlahMaksimal_perBlok === 0 ? 0 : 1); // Jumlah potongan
                 
-                hasil = teksTerpecah.map((e, nomorUrutBlok) => {
-                    return penggeseranVertikal(e, nomorUrutBlok);
-                }).flat(Infinity);
+                while (teksTerpecah.length !== jumlahMaksimalTeksTerpecah) {
+                    teksTerpecah.push(teksAsli.slice(0, jumlahMaksimal_perBlok)); // Mengambil teksAsli dengan masing2 potongan maks=jumlahMaksimal_perBlok
+                    teksAsli = teksAsli.slice(jumlahMaksimal_perBlok); // Menghapus sebanyak 'n' elemen pertama (n = jumlahMaksimal_perBlok)
+                }
+
+                for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
+                    teksTerpecah = teksTerpecah.map((e, nomorUrutBlok) => penggeseranVertikal(e, nomorUrutBlok + id_enkripsi));
+                }
+
+                hasil = teksTerpecah.flat(Infinity);
             }
 
-            // 2.2 (2) : Cermin_dekripsi
+            // 2.2 (2) : Jika dekripsi
             if (!get.statusEnkripsi()) {
-                let jumlah_Refleksi = tempatJumlahRefleksi.value + 1;
+                if (hasil.length > 1){
+                    let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
+                        temp;
+                    for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
+                        temp          = hasil[i];
+                        hasil[i]   = hasil[i+1];
+                        hasil[i+1] = temp;
+                    }
+                    
+                    // Substitusi depan-belakang
+                    hasil = hasil.length === 1 ? hasil : hasil.slice(Math.floor(hasil.length / 2)).concat( hasil.slice(0, Math.floor(hasil.length / 2)) );
+                }
+                hasil = hasil.reverse(); // Pembalik
 
+                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + get.id(get.elemen('#tempatJenisCermin').value);
                 while (jumlah_Refleksi > 0) {
-                    hasil = hasil.map(e => get.nilaiCermin(e));
+                    hasil = hasil.map(e => get.nilaiCermin(e)); // Pencerminan
                     jumlah_Refleksi--;
                 }
+
             }
 
             // 2.4 : Mengembalikan tanda baca
@@ -329,20 +425,22 @@
         let arahGeser                = get.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
             password                 = get.password(), // Mendapatkan password dari tempat input password
             nilaiPassword            = get.passwordValue(password), // Mendapatkan 
-            nilaiKonkatenasiPassword = Math.ceil(get.password_concatenateValue(password) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
+            nilaiKonkatenasiPassword = Math.ceil(get.concatenateValue(password) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
             nilaiPrimer              = password.length === 0 ? 19 : [...password].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
             jumlahPenguncian         = Math.ceil(password.length < 1 ? 4 : password.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
 
-            angkaGeser               = [nomorUrutBlok + nilaiPassword[1] + nilaiKonkatenasiPassword + nilaiPrimer, nomorUrutBlok + nilaiPassword[0] + nilaiSekunder - 10];
+            angkaGeser               = [nomorUrutBlok + nilaiPassword[1] + nilaiKonkatenasiPassword + nilaiPrimer + teks_arr.length + 7, nomorUrutBlok + nilaiPassword[0] + nilaiSekunder - 10];
                 angkaGeser           = [Math.abs(Math.ceil(angkaGeser[0])), Math.abs(Math.ceil(angkaGeser[1]))]; // Membulatkan ke atas jika desimal dan menjadikannya bilangan cacah (bilangan bulat positif mulai dari 0)
-            
+
+        
+
         // 3.2 : Enkripsi - Dekripsi
         while (jumlahPenguncian > 0) {
             for(let i = 0; i < teks_arr.length; i++) {
 
                 // Pengecekan : Jika nilai di dalam array angkaGeser melebihi jumlah tertentu, maka nilainya akan dikurangi
-                angkaGeser            = [angkaGeser[0] > 100000000 ? Math.ceil(angkaGeser[0] / 100000) : angkaGeser[0], angkaGeser[1] > 50000000 ? Math.ceil(angkaGeser[1] / 1700000) : angkaGeser[1]];
+                angkaGeser            = [angkaGeser[0] > 1000000000 ? Math.ceil((angkaGeser[0] / 729624102) * 100) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
 
                 // Proses penggeseran
                 teks_arr[i] = geser(teks_arr[i], arahGeser, angkaGeser[0]);
@@ -350,13 +448,17 @@
                 // Konfigurasi pasca penggeseran
                 arahGeser             = !arahGeser; // Pembalik arah geser (Penentu proses zig-zag)
                 angkaGeser            = [angkaGeser[1], angkaGeser[0] + angkaGeser[1] + 7]; // angkaGeser[0] digunakan untuk menentukan jumlah penggeseran yang akan dilakukan oleh Fungsi geser()
-                                                                                        // Pola yang digunakan adalah pola pada Deret Fibonacci (TIDAK harus simulai dari 1,1)
+                                                                                            // Pola yang digunakan adalah pola pada Deret Fibonacci (TIDAK harus dimulai dari 1,1)
             }
             jumlahPenguncian--;
         }
 
         // 3.3 : Hasil akhir
         return teks_arr;
+    },
+
+    penunggu = n => {
+        return n;
     },
 
     // Berfungsi untuk memberi peringatan kepada pengguna jika hasil output terdapat karakter spasi
@@ -398,7 +500,7 @@
           tempatInput            = get.elemen('#tempatInput'),
           tempatOutput           = get.elemen('#tempatOutput'),
           tempatInfo             = get.elemen('#tempatInfo');
-          
+
     const tempatInput_TextChanged = () => {
                 mulaiProses();
           },
@@ -415,8 +517,8 @@
           },
 
           tempatPassword_TextChanged = () => {
-                // Mem-filter tempat password sesuai variabel "teksInput_yangDiizinkan"
-                tempatPassword.value = [...get.password()].filter(e => teksInput_yangDiizinkan.includes(e)).join('');
+                // Mem-filter tempat password sesuai variabel "KUNCI_diurutkan"
+                tempatPassword.value = [...get.password()].filter(e => KUNCI_diurutkan.includes(e)).join('');
 
                 mulaiProses();
           },
@@ -430,13 +532,15 @@
           };
 
     // Membuat daftar 'value' untuk tempatJenisCermin
-    for (let i = 0; i < CERMIN.length; i++) {
-        if (i < hurufKapital.length) {
-            let option_jenisCermin             = document.createElement('option');
-                option_jenisCermin.value       = i;
-                option_jenisCermin.innerHTML   = hurufKapital[i];
-            tempatJenisCermin.appendChild(option_jenisCermin);
+    for (let i = 0; i < hurufKapital.length; i++) {
+        if (i >= CERMIN.length ) { // Berenti jika indeks lebih atau sama dengan panjang Cermin
+            break;
         }
+
+        let option_jenisCermin             = document.createElement('option');
+            option_jenisCermin.value       = i;
+            option_jenisCermin.innerHTML   = hurufKapital[i];
+        tempatJenisCermin.appendChild(option_jenisCermin);
     }
 
     // Membuat daftar 'value' untuk tempatJumlahRefleksi
@@ -450,5 +554,4 @@
     // Jika elemen HTML dan JavaScript diproses, maka 'penanda-kini' otomatis fokus ke tempat input
     tempatInput.focus();
 
-    
-// Rabu, 22 September 2021 09.53
+// Tanggal selesai versi pertama : Rabu, 22 September 2021 09.53
