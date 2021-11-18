@@ -258,7 +258,7 @@
         let statusValidCermin = is.valid_CERMIN();
 
         if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
-            tempatOutput.value = pemotonganString(tempatInput.value);
+            tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
         else {
             tempatInput.value = '';
             tempatOutput.value = '';
@@ -286,7 +286,7 @@
                         jenis = typeof KUNCI;
                     }
 
-                    console.log('Jenis variabel KUNCI : ' + jenis);
+                    console.log('Jenis variabel KUNCI sekarang : ' + jenis);
                 }
                 console.log('');
             }
@@ -306,8 +306,8 @@
         ifContain_spaceChar();
     },
     
-    // Tahap 2 : Mem-backup tanda baca
-    pemotonganString = teksAsli => {
+    // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
+    mulaiEnkripsiDekripsi = teksAsli => {
         teksAsli = [...teksAsli]; // Teks asli dipecah menjadi array
 
         // Hanya string yang terdapat pada variabel KUNCI yang akan diroses
@@ -358,11 +358,11 @@
             }
             else {
                 let teksTerpecah = [];
-                    jumlahMaksimalTeksTerpecah = Math.floor(teksAsli.length / jumlahMaksimal_perBlok) + (teksAsli % jumlahMaksimal_perBlok === 0 ? 0 : 1); // Jumlah potongan
+                    jumlahMaksimalTeksTerpecah = Math.floor(teksAsli.length / jumlahMaksimal_perBlok) + (teksAsli.length % jumlahMaksimal_perBlok === 0 ? 0 : 1); // Jumlah potongan
                 
                 while (teksTerpecah.length !== jumlahMaksimalTeksTerpecah) {
-                    teksTerpecah.push(teksAsli.slice(0, jumlahMaksimal_perBlok)); // Mengambil teksAsli dengan masing2 potongan maks=jumlahMaksimal_perBlok
-                    teksAsli = teksAsli.slice(jumlahMaksimal_perBlok); // Menghapus sebanyak 'n' elemen pertama (n = jumlahMaksimal_perBlok)
+                    teksTerpecah.push(teksAsli.slice(0, jumlahMaksimal_perBlok - 1)); // Mengambil teksAsli dengan masing2 potongan maks=jumlahMaksimal_perBlok
+                    teksAsli = teksAsli.slice(jumlahMaksimal_perBlok); // Menghapus blok terdepan
                 }
 
                 for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
@@ -418,7 +418,7 @@
         }
     },
 
-    // Tahap 3 : Enkripsi - Dekripsi
+    // Tahap 3 : Enkripsi-Dekripsi per Blok
     penggeseranVertikal = (teks_arr, nomorUrutBlok) => {
 
         // 3.1 : Deklarasi variabel sebelum proses enkripsi-dekripsi
@@ -455,10 +455,6 @@
 
         // 3.3 : Hasil akhir
         return teks_arr;
-    },
-
-    penunggu = n => {
-        return n;
     },
 
     // Berfungsi untuk memberi peringatan kepada pengguna jika hasil output terdapat karakter spasi
