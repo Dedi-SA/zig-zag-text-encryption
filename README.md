@@ -4,4 +4,4 @@ Zig Zag Text Encryption is a simple program whose main function is to encrypt te
 
 The results of the encryption can also be strengthened by adding a password.
 
-This program is inspired by the German's ENIGMA Engine.
+This program is inspired by the German's ENIGMA Machine.
