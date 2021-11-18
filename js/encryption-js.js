@@ -18,6 +18,13 @@
                 [...'w&{a0~<h3r#U;P8=-Do^eH1M@Am/QO_9xtjLF.C7?]X\'qIc+2f%v}k:Y`>bVp J*RN)zn!"ZBuE|4[Ws(TKy$G6i,dSlg5'], // [0] A
                 [...'>Qk[Go"1#<y5)A3Lf?mv$TJX aN-zt}8O=%4~RhD/^|YM!nHUr*,cB7u2j\'gl&_qVbx`9]CW:iK;{sFPSI+w@6eZ0.(pEd'], // [1] B
                 [...'Jt{Ph5,Sy(p#DUoLzcY72~F\'NwQ?]AHk<3bEre@_;x"n%6Tu)R1M=. K9^fW!Bq:j}$Xd-[lI0g8&vZs`OG4/mi*>CaV|+'], // [2] C
+                [...'Yh{Q<aoE&w72])jbf"Jr%u6[3N,FPT@}K^.8-pV*?Oi0!AkyC4 vm\'$BU9|+/Z(LS_~tWcqGI5:nxsd=HM;z1D>#Rg`lXe'], // [3] D
+                [...'4yl<5!Bm)\'gT}-2OfXMrIa{+:wD%jWG9c`p,u #R/N*x;L$S_?V~o@k]7b"vq(etJZCQh=3HzAYF^>PU6|.1dn0[s8&iKE'], // [4] E
+                [...'Iz)Wd7/jpDa(m"ZxT]P#9`3ChV;G_fl+yM wrNB%-UR~n*4tJcv\'1L=}0eQ>:$OqY@E^<8K[As!ioFXk,g6{|?.u5S&2Hb'], // [5] F
+                [...'ftEc9%RvkKn(P>q3hJ;4uA`._ma5$)-S0sO#Ww1]\'H<LCV7*,e{i=IDzZ@p[g~T&BrlY:6UxjN+y!o|XQ2?M^}8G "dF/b'], // [6] G
+                [...'g6SCsxn<W%O5DXhqy-I)f~:P?=avM^U3rJkA;>te&w[1iTGb8L/FQ+0u*d7_K4@Z`B\'zl("oR{#cN}.m !Y$H2E]9,pVj|'], // [7] H
+                [...'vdMl/E*w1Wh7H%{y:,KnBaxf8P@X]LF(+3^kq!_A>Gmi. Q;`&24c}T9[Je~N\'s)YjS?5r$-0bt"R|=oICZ<U6gOVzD#pu'], // [8] I
+                [...'%eXVo8Tb, +Yh<]G^1S(0t\'H-p|kL#_7fAuMc26;>vO@g[z?IE)C~{drUjB`lFaNWw}JQ:s!3qP&9nD5x"R$Km.*i=Zy/4'], // [9] J
                 /*
                     Aturan :
                         1. Semua ketentuan yang berlaku untuk variabel KUNCI di atas, juga berlaku untuk setiap elemen di dalam array CERMIN
