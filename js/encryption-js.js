@@ -35,6 +35,12 @@
                 [...'_J<3=f&t%OX6Vc>7A^KY)]4;r-{d"gmsT#wz15uxWPe8E|k(:yp9+},UL2$Zl ?Qv@/M0*.iBRjHN~DS[ah`FICbn!qo\'G'], // [17] R
                 [...'naC84msPbl+|Gp?}VM^2xcWk@N<T3Q9&/v._H[DUO`y5dq!=EIXjzFw\'e7*Y)RJo-]r:Ai"ZS>(6tf10%#,~BK{hu;g L$'], // [18] S
                 [...'jR}TV5&0a,tpl.SU%L{9WbBr|"$MD26 C-uI/kN_x?4Y^q@cOgy)\'m3#E=Zsv:z!`dFJ1>f;+[Hh7A*Xw~nKQe]<8Gi(oP'], // [19] T
+                [...'8 r6oUL^C.4zV#u}apE_OsY|`5&/"nfPF)cA~3=@MJtqDRK,j*9{x:BZNW]gSeH>(kyQ[1d-7;Ih$2+lb!X<?Twi0G%\'vm'], // [20] U
+                [...'a\'3~I9y"bY(gz,lAtp}ZOD/>d{01&Uu?.E H2j@*:hm+6$MTP[vJ7o`qe%QNWrFwk!-VnLG^s4<8Rxc=KBS#]5X)Ci_f|;'], // [21] V
+                [...'5? jE}{bO%zC\'x"pfP#D3n:X(_$;L=yhI7U8`+wa*YdR<~4BJ[!t]qQo^HVKm)>-6uS&iWrv1GN2k,TcsZgl.AMF|/e09@'], // [22] W
+                [...';rDn+#O4uwVE"!ayC:$KzW.o1<3@9R-s[lc2vIT7L)Q0t_A`=pU?JY~mx}NhB,G^{ /M*8qb5(j|HSeX%>dk6\'PZf]&iFg'], // [23] X
+                [...'_iPZ<=zD@b^sHpM"Q!A7m3f{a4EqX;T[I1C`wjYn2tU?Nd:r(6/gF+8] &k\'R9oK*xyVO>$,S0u|LG#v5.cJ~We)lB%h}-'], // [24] Y
+                [...'p5VXtDr6:xbJ~S-hmK%Y{TqBW`yU $jv]<1C,ez7_}Fn#>2a(s\'E|Ow?&Q=8Ro9*P+04L@M";i.k^Gdu[!fNHc)lIZ/g3A'], // [25] Z
 
                 /*
                     Aturan :
