@@ -338,7 +338,6 @@
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
         if (teksAsli.filter(e => KUNCI.includes(e)).length > 0) {
             let tandaBaca              = [],
-                jumlahMaksimal_perBlok = 43 - Math.ceil(get.password().length / 2),
                 jumlahEnkripsi         = Math.ceil(get.password().length === 0 ? 1 : get.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
@@ -351,7 +350,7 @@
 
             // 2.2 (1) : Jika enkripsi
             if (get.statusEnkripsi()) {
-                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + get.id(get.elemen('#tempatJenisCermin').value);
+                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + (+get.elemen('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
                     teksAsli = teksAsli.map(e => get.nilaiCermin(e)); // Pencerminan
                     jumlahRefleksi--;
@@ -375,26 +374,9 @@
             
             // 2.3 : Enkripsi - Dekripsi
             let hasil;
-            if (teksAsli.length <= jumlahMaksimal_perBlok) { // Jika panjang string input kurang dari jumlahMaksimal_perBlok
                 for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
                     hasil = penggeseranVertikal(teksAsli, 0 + id_enkripsi); // hasil return : array[str, str, ....]
                 }
-            }
-            else {
-                let teksTerpecah = [];
-                    jumlahMaksimalTeksTerpecah = Math.floor(teksAsli.length / jumlahMaksimal_perBlok) + (teksAsli.length % jumlahMaksimal_perBlok === 0 ? 0 : 1); // Jumlah potongan
-                
-                while (teksTerpecah.length !== jumlahMaksimalTeksTerpecah) {
-                    teksTerpecah.push(teksAsli.slice(0, jumlahMaksimal_perBlok - 1)); // Mengambil teksAsli dengan masing2 potongan maks=jumlahMaksimal_perBlok
-                    teksAsli = teksAsli.slice(jumlahMaksimal_perBlok); // Menghapus blok terdepan
-                }
-
-                for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
-                    teksTerpecah = teksTerpecah.map((e, nomorUrutBlok) => penggeseranVertikal(e, nomorUrutBlok + id_enkripsi));
-                }
-
-                hasil = teksTerpecah.flat(Infinity);
-            }
 
             // 2.2 (2) : Jika dekripsi
             if (!get.statusEnkripsi()) {
@@ -412,7 +394,7 @@
                 }
                 hasil = hasil.reverse(); // Pembalik
 
-                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + get.id(get.elemen('#tempatJenisCermin').value);
+                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + (+get.elemen('#tempatJenisCermin').value);
                 while (jumlah_Refleksi > 0) {
                     hasil = hasil.map(e => get.nilaiCermin(e)); // Pencerminan
                     jumlah_Refleksi--;
@@ -442,7 +424,7 @@
         }
     },
 
-    // Tahap 3 : Enkripsi-Dekripsi per Blok
+    // Tahap 3 : Enkripsi-Dekripsi
     penggeseranVertikal = (teks_arr, nomorUrutBlok) => {
 
         // 3.1 : Deklarasi variabel sebelum proses enkripsi-dekripsi
