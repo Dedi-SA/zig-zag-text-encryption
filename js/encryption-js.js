@@ -92,7 +92,7 @@
                 }
             }
             else {
-                console.log('Kesalahan : Fungsi get.id() menerima argumen yang tidak valid');
+                console.log('Kesalahan : Fungsi get.nilaiCermin() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof str);
 
                 if (is.str(str)) { // Jika string
