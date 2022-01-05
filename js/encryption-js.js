@@ -55,7 +55,7 @@
 
                         5. Jumlah elemen dalam array CERMIN boleh ditambah atau dikurangi secara bebas dengan tetap
                            mengikuti peraturan sebelumnya, dengan catatan jumlah elemen dalam array CERMIN => min:1 max:26
-                           Saat ini ditulis, array CERMIN memiliki 12 elemen di dalamnya ( A sampai L )
+                           Saat ini, array CERMIN memiliki 26 elemen di dalamnya ( A sampai Z )
                 */
           ];
 
