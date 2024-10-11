@@ -44,7 +44,7 @@
                     Aturan :
                         1. Semua ketentuan yang berlaku untuk variabel KUNCI di atas, juga berlaku untuk setiap elemen di dalam array CERMIN
 
-                        2. Elemen yang dimaksud adalah baris kode yang ditandai dengan huruf A sampai L
+                        2. Elemen yang dimaksud adalah baris kode yang ditandai dengan huruf A sampai Z
                         
                         3. Seluruh elemen di dalam array CERMIN bersifat unik ( TIDAK boleh ada yang sama satu sama lain )
 
@@ -57,186 +57,106 @@
                 */
           ];
 
-    const specialGet = {
-        cermin: () => { // return : Array
-            return CERMIN[+tempatJenisCermin.value]; // Jenis cermin yang akan dipakai
-        },
-        nilaiCermin: str => {
-            if (is.str(str) && str.length === 1) {
-                
-                if (specialGet.statusEnkripsi()) { // Jika Enkripsi
-                    return specialGet.cermin()[generalString.indexOf(str)];
-                }
-                else { // Jika Dekripsi
-                    return generalString[specialGet.cermin().indexOf(str)];
-                }
-            }
-            else {
-                console.log('Kesalahan : Fungsi specialGet.nilaiCermin() menerima argumen yang tidak valid');
-                console.log('Jenis : ' + typeof str);
-
-                if (is.str(str)) { // Jika string
-                    console.log('String : ' + ( str.length < 1 ? '<-kosong->' : (str === ' ' ? '<-spasi->' : str) ));
-                    console.log('Panjang string : ' + str.length);
-                }
-                else { // Jika bukan string
-                    console.log('Nilai : ' + str);
-                }
-                
-                tempatInput.value = '';
-                tempatOutput.value = '';
-            }
-        },
-        statusEnkripsi: () => {
-            return get.element('#tempatStatusEnkripsi').value === 'enkripsi';
-        },
-        password: () => {
-            return tempatPassword.value;
-        },
-        passwordValue: password => { // Mendapatkan nilai unik dari nomor indeks dari tiap karakter pada password
-            if (password.length < 1)
-                return [0, 0];
-            else if (password.length === 1)
-                return [get.id(password, KUNCI), 0];
-            else {
-                password = [...password];
-                let sliceValue = Math.ceil(password.length / 2);
-
-                return [password.slice(sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0)];
-            }
-        },
-        restOfChars: teksPertama => {
-            if (is.str(teksPertama) && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
-                return [...KUNCI.slice(get.id(teksPertama, KUNCI)), ...KUNCI.slice(0, get.id(teksPertama, KUNCI))];
-            }
-            else {
-                console.log('Kesalahan : Fungsi specialGet.restOfChars() menerima argumen yang tidak valid');
-                console.log('Jenis : ' + typeof teksPertama);
-
-                if (is.str(teksPertama)) { // Jika string
-                    console.log('String : ' + ( teksPertama.length < 1 ? '<-kosong->' : (teksPertama === ' ' ? '<-spasi->' : teksPertama) ));
-                    console.log('Panjang string : ' + teksPertama.length);
-                }
-                else { // Jika bukan string
-                    console.log('Nilai : ' + teksPertama);
-                }
-
-                console.log('');
-                tempatInput.value = '';
-                tempatOutput.value = '';
-            }
-        },
-        karakterHilang: cermin => { // Jika karakter yang ada pada cermin kurang dari jumlah normal, maka fungsi ini dapat dipanggil untuk melihat 
-            let temp = [];
-            KUNCI.forEach((e, i) => {
-                if (!cermin.includes(e))
-                    temp.push(e)
-            });
-
-            console.log('Karakter yang hilang : ' + temp);
-        }
-    },
-
     // Kumpulan fungsi yang menghasilkan nilai boolean
-    is = {
-        str: str => {
-            return typeof str === 'string';
-        },
-        valid_KUNCI: (theKey) => {
-            if (Array.isArray(theKey)) {
-                return [...theKey].length === clearTheDuplicate(theKey).length && theKey.every(e => is.str(e));
+    const is = {
+            str: str => {
+                return typeof str === 'string';
+            },
+            valid_KUNCI: (theKey) => {
+                if (Array.isArray(theKey)) {
+                    return [...theKey].length === clearTheDuplicate(theKey).length && theKey.every(e => is.str(e));
+                }
+                else
+                    return false;
+            },
+            valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
+                let cermin_diFilter           = specialGet.cermin().filter(e => KUNCI.includes(e)),
+                    cermin_tanpaPengulangan   = clearTheDuplicate(cermin_diFilter);
+
+                return KUNCI.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
             }
-            else
+        },
+
+        clearTheDuplicate = obj => { // Privent duplicate in string or array
+            if (Array.isArray(obj)) {
+                let temp = new Set(obj)
+                return [...temp];
+            }
+            else if (typeof obj === 'string'){
+                let temp = new Set([...obj]);
+                return [...temp].join('');
+            }
+            else {
+                console.log('Kesalahan : Fungsi clearTheDuplicate() menerima argumen yang tidak valid\n ');
                 return false;
+            }
         },
-        valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
-            let cermin_diFilter           = specialGet.cermin().filter(e => KUNCI.includes(e)),
-                cermin_tanpaPengulangan   = clearTheDuplicate(cermin_diFilter);
 
-            return KUNCI.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
-        }
-    },
+        geser = (karakter, arah, jumlahPenggeseran) => {
+            jumlahPenggeseran = jumlahPenggeseran >= KUNCI.length ? jumlahPenggeseran % KUNCI.length : jumlahPenggeseran;
 
-    clearTheDuplicate = obj => { // Privent duplicate in string or array
-        if (Array.isArray(obj)) {
-            let temp = new Set(obj)
-            return [...temp];
-        }
-        else if (typeof obj === 'string'){
-            let temp = new Set([...obj]);
-            return [...temp].join('');
-        }
-        else {
-            console.log('Kesalahan : Fungsi clearTheDuplicate() menerima argumen yang tidak valid\n ');
-            return false;
-        }
-    },
+            if (jumlahPenggeseran === 0) {
+                return karakter;
+            }
+            else {
+                let arr = specialGet.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
 
-    geser = (karakter, arah, jumlahPenggeseran) => {
-        jumlahPenggeseran = jumlahPenggeseran >= KUNCI.length ? jumlahPenggeseran % KUNCI.length : jumlahPenggeseran;
+                return ( arah ? arr[arr.length - jumlahPenggeseran] : arr[jumlahPenggeseran] );
+            }
+        },
 
-        if (jumlahPenggeseran === 0) {
-            return karakter;
-        }
-        else {
-            let arr = specialGet.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
+        // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
+        zztEncryptor = () => {
+            let statusValidKunci  = is.valid_KUNCI(KUNCI);
+            let statusValidCermin = is.valid_CERMIN();
 
-            return ( arah ? arr[arr.length - jumlahPenggeseran] : arr[jumlahPenggeseran] );
-        }
-    },
+            if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
+                tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
+            else {
+                tempatInput.value = '';
+                tempatOutput.value = '';
 
-    // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
-    zztEncryptor = () => {
-        let statusValidKunci  = is.valid_KUNCI(KUNCI);
-        let statusValidCermin = is.valid_CERMIN();
-
-        if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
-            tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
-        else {
-            tempatInput.value = '';
-            tempatOutput.value = '';
-
-            if (!statusValidKunci) { // Jika variabel KUNCI tidak valid
-                if (Array.isArray(KUNCI)) {
-                    console.log('Kesalahan : KUNCI tidak valid');
-                    console.log('Jika anda meng-edit KUNCI, harus memenuhi 3 syarat : ');
-                    console.log('1. Kunci harus berupa array');
-                    console.log('3. Di dalamnya terdapat 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 karakter simbol serta tanda baca');
-                    console.log('4. Tiap elemen bersifat unik / tidak boleh ditulis dua kali');
-                }
-                else { // Jika KUNCI bukan array
-                    console.log('Kesalahan : Variabel KUNCI harus berupa Array');
-                    let jenis;
-                    if (is.str(KUNCI)) {
-                        jenis = 'String';
-                    } else if (typeof KUNCI === 'object') {
-                        jenis = 'Objek';
-                    } else if (typeof KUNCI === 'number' && !isNaN(KUNCI)) {
-                        jenis = 'Angka';
-                    } else if (typeof KUNCI === 'number' && isNaN(KUNCI)) {
-                        jenis = 'NaN';
-                    } else {
-                        jenis = typeof KUNCI;
+                if (!statusValidKunci) { // Jika variabel KUNCI tidak valid
+                    if (Array.isArray(KUNCI)) {
+                        console.log('Kesalahan : KUNCI tidak valid');
+                        console.log('Jika anda meng-edit KUNCI, harus memenuhi 3 syarat : ');
+                        console.log('1. Kunci harus berupa array');
+                        console.log('3. Di dalamnya terdapat 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 karakter simbol serta tanda baca');
+                        console.log('4. Tiap elemen bersifat unik / tidak boleh ditulis dua kali');
                     }
+                    else { // Jika KUNCI bukan array
+                        console.log('Kesalahan : Variabel KUNCI harus berupa Array');
+                        let jenis;
+                        if (is.str(KUNCI)) {
+                            jenis = 'String';
+                        } else if (typeof KUNCI === 'object') {
+                            jenis = 'Objek';
+                        } else if (typeof KUNCI === 'number' && !isNaN(KUNCI)) {
+                            jenis = 'Angka';
+                        } else if (typeof KUNCI === 'number' && isNaN(KUNCI)) {
+                            jenis = 'NaN';
+                        } else {
+                            jenis = typeof KUNCI;
+                        }
 
-                    console.log('Jenis variabel KUNCI sekarang : ' + jenis);
+                        console.log('Jenis variabel KUNCI sekarang : ' + jenis);
+                    }
+                    console.log('');
                 }
-                console.log('');
+                else if (!statusValidCermin) { // Jika cermin yang digunakan tidak valid
+                    if (Array.isArray(specialGet.cermin())) {
+                        console.log('Kesalahan : Jenis cermin yang digunakan tidak valid, silahkan gunakan yang lain atau perbaiki kode');
+                        console.log('Jenis cermin : ' + hurufKapital[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
+                    }
+                    else {
+                        console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 94 karakter di dalamnya');
+                        console.log('Cermin yang anda gunakan : ' + typeof specialGet.cermin());
+                    }
+                    console.log('');
+                }
             }
-            else if (!statusValidCermin) { // Jika cermin yang digunakan tidak valid
-                if (Array.isArray(specialGet.cermin())) {
-                    console.log('Kesalahan : Jenis cermin yang digunakan tidak valid, silahkan gunakan yang lain atau perbaiki kode');
-                    console.log('Jenis cermin : ' + hurufKapital[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
-                }
-                else {
-                    console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 94 karakter di dalamnya');
-                    console.log('Cermin yang anda gunakan : ' + typeof specialGet.cermin());
-                }
-                console.log('');
-            }
-        }
 
-        ifContain_spaceChar();
+            ifContain_spaceChar();
     },
     
     // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
