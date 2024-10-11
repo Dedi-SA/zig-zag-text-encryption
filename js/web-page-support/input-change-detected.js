@@ -1,11 +1,11 @@
         // Simplified element
-const   tempatStatusEnkripsi   = specialGet.elemen('#tempatStatusEnkripsi'),
-        tempatPassword         = specialGet.elemen('#tempatPassword'),
-        tempatJenisCermin      = specialGet.elemen('#tempatJenisCermin'),
-        tempatJumlahRefleksi   = specialGet.elemen('#tempatJumlahRefleksi'),
-        tempatInput            = specialGet.elemen('#tempatInput'),
-        tempatOutput           = specialGet.elemen('#tempatOutput'),
-        tempatInfo             = specialGet.elemen('#tempatInfo');
+const   tempatStatusEnkripsi   = get.element('#tempatStatusEnkripsi'),
+        tempatPassword         = get.element('#tempatPassword'),
+        tempatJenisCermin      = get.element('#tempatJenisCermin'),
+        tempatJumlahRefleksi   = get.element('#tempatJumlahRefleksi'),
+        tempatInput            = get.element('#tempatInput'),
+        tempatOutput           = get.element('#tempatOutput'),
+        tempatInfo             = get.element('#tempatInfo');
 
 const   tempatInput_TextChanged = () => {
             zztEncryptor();
@@ -23,8 +23,8 @@ const   tempatInput_TextChanged = () => {
         },
 
         tempatPassword_TextChanged = () => {
-            // Mem-filter tempat password sesuai variabel "KUNCI_diurutkan"
-            tempatPassword.value = [...specialGet.password()].filter(e => KUNCI_diurutkan.includes(e)).join('');
+            // Mem-filter tempat password sesuai variabel "generalString"
+            tempatPassword.value = [...specialGet.password()].filter(e => generalString.includes(e)).join('');
 
             zztEncryptor();
         },

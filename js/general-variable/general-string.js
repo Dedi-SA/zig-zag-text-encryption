@@ -1,0 +1,1 @@
+const generalString = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ `~!@#$%^&*()-_=+[]{}|;:\'",.<>/?';

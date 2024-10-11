@@ -9,10 +9,8 @@
             3. Pengurutan tiap karakter tersebut adalah bebas/acak sesuai kehendak, yang mana tiap urutannya akan mempengaruhi hasil enkripsi-dekripsi
     */
 
-    const KUNCI_diurutkan = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ `~!@#$%^&*()-_=+[]{}|;:\'",.<>/?', // Jangan diedit !!
-          hurufDanAngka = KUNCI_diurutkan.slice(0, KUNCI_diurutkan.indexOf('Z') + 1), // Jangan diedit !!
-          hurufKapital = KUNCI_diurutkan.slice(KUNCI_diurutkan.indexOf('A'), KUNCI_diurutkan.indexOf('Z') + 1), // Jangan diedit !!
-          angka = KUNCI_diurutkan.slice(0, 9); // Jangan diedit !!
+    const hurufDanAngka = generalString.slice(0, generalString.indexOf('Z') + 1), // Jangan diedit !!
+          hurufKapital = generalString.slice(generalString.indexOf('A'), generalString.indexOf('Z') + 1), // Jangan diedit !!
 
           CERMIN = [ // Array CERMIN : Setiap elemen dalam array CERMIN boleh dimodifikasi dengan mematuhi beberapa aturan di bawah
                 [...'w&{a0~<h3r#U;P8=-Do^eH1M@Am/QO_9xtjLF.C7?]X\'qIc+2f%v}k:Y`>bVp J*RN)zn!"ZBuE|4[Ws(TKy$G6i,dSlg5'], // [0]  A
@@ -67,10 +65,10 @@
             if (is.str(str) && str.length === 1) {
                 
                 if (specialGet.statusEnkripsi()) { // Jika Enkripsi
-                    return specialGet.cermin()[KUNCI_diurutkan.indexOf(str)];
+                    return specialGet.cermin()[generalString.indexOf(str)];
                 }
                 else { // Jika Dekripsi
-                    return KUNCI_diurutkan[specialGet.cermin().indexOf(str)];
+                    return generalString[specialGet.cermin().indexOf(str)];
                 }
             }
             else {
@@ -91,7 +89,7 @@
             }
         },
         statusEnkripsi: () => {
-            return specialGet.elemen('#tempatStatusEnkripsi').value === 'enkripsi';
+            return get.element('#tempatStatusEnkripsi').value === 'enkripsi';
         },
         password: () => {
             return tempatPassword.value;
@@ -107,50 +105,6 @@
 
                 return [password.slice(sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0)];
             }
-        },
-        concatenateValue: password => {
-            /*
-                Tiap karakter akan di-'convert' menjadi nomor indeksnya masing-masing, kemudian digabung, lalu diconvert menjadi angka
-
-                Contoh : ~ password 'bca'
-                         ~ huruf 'b' diganti menjadi 8, karena di dalam variabel KUNCI, huruf 'b' berada dalam indeks ke 8
-                         ~ karena harus 2 digit angka, maka angka 8 ditambahkan 0 di depannya menjadi 08
-                         ~ huruf 'c' menjadi 28
-                         ~ huruf 'a' menjadi 39
-                         ~ saat masih dalam bentuk string, angka-angka tersebut digabung dan menghasilkan nilai 082839 (string)
-                         ~ string tersebut kemudian di-'convert' menjadi integer sehingga menghasilkan nilai 82839 (integer)
-                         ~ kemudian nilai integer akan di-'return'
-
-                         Catatan : Dengan beberapa improvisasi dan modifikasi kode
-            */
-            if (password.length < 1) {
-                return tempatInput.value.length * (1 + tempatInput.value.length);
-            }
-            else if (password.length === 1) {
-                let id                    = get.id(password, KUNCI)
-                    panjang_Password      = password.length < 1 ? 67 + id : password.length + 17 + id,
-                    nilaiJenisCermin      = +specialGet.elemen('#tempatJenisCermin').value + panjang_Password + id + 4,
-                    panjang_Input         = ( tempatInput.value.length < 1 ? Math.abs((72 + nilaiJenisCermin) - panjang_Password) + id : nilaiJenisCermin + panjang_Password + id + 2);
-                return panjang_Password + nilaiJenisCermin + panjang_Input + 11;
-            }
-            else {
-                let hasil,
-                    nilaiKonkatenasi = [...password].map(e => get.id(e, KUNCI) + '').map(e => e.length === 1 ? '0' + e : e).join(''); // Mengganti tiap karakter password menjadi nilai indeks masing-masing (nilai indeks dalam bentuk string)
-                    nilaiKonkatenasi = nilaiKonkatenasi.split('').map((e, i) => ((i+1) % 10 === 0 ? e + ',' : e)).join(''); // Setiap sampai 5 elemen, maka elemen tersebut akan ditambahkan koma di belakangnya
-                    nilaiKonkatenasi = nilaiKonkatenasi.split(',').map(e => +e); // Meng-convert masing-masing elemen menjadi integer
-
-                    hasil = nilaiKonkatenasi.reduce((a,b) => a+b, 0); // Menjumlahkan seluruh elemen
-
-                return Math.ceil(hasil / (password.length * 11)); // Math.ceil() digunakan untuk berjaga-jaga jika hasilnya desimal, nilai nol sangat dihindari
-            }
-        },
-        elemen: namaElemen => {
-            if (namaElemen.startsWith('.'))
-                return document.getElementsByClassName(namaElemen.slice(1));
-            else if (namaElemen.startsWith('#'))
-                return document.getElementById(namaElemen.slice(1));
-            else
-                console.log('Kesalahan : Fungsi specialGet.elemen() menerima argumen yang tidak valid\n ');
         },
         restOfChars: teksPertama => {
             if (is.str(teksPertama) && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
@@ -306,7 +260,7 @@
 
             // 2.2 (1) : Jika enkripsi
             if (specialGet.statusEnkripsi()) {
-                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((specialGet.elemen('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+specialGet.elemen('#tempatJenisCermin').value);
+                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+get.element('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
                     teksAsli = teksAsli.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlahRefleksi--;
@@ -350,7 +304,7 @@
                 }
                 hasil = hasil.reverse(); // Pembalik
 
-                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((specialGet.elemen('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+specialGet.elemen('#tempatJenisCermin').value);
+                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+get.element('#tempatJenisCermin').value);
                 while (jumlah_Refleksi > 0) {
                     hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlah_Refleksi--;
@@ -387,7 +341,7 @@
         let arahGeser                = specialGet.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
             password                 = specialGet.password(), // Mendapatkan password dari tempat input password
             nilaiPassword            = specialGet.passwordValue(password), // Mendapatkan nilai Password [number, number]
-            nilaiKonkatenasiPassword = Math.ceil(specialGet.concatenateValue(password) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
+            nilaiKonkatenasiPassword = Math.ceil(get.stringConcatenateNumber(password, get.reverse(password)) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
             nilaiPrimer              = password.length === 0 ? 19 : [...password].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
             jumlahPenguncian         = Math.ceil(password.length < 1 ? 4 : password.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
@@ -421,7 +375,7 @@
 
     // Berfungsi untuk memberi peringatan kepada pengguna jika hasil output terdapat karakter spasi
     ifContain_spaceChar = () => {
-        let statusEnkripsi = specialGet.elemen('#tempatStatusEnkripsi').value;
+        let statusEnkripsi = get.element('#tempatStatusEnkripsi').value;
 
         if (tempatOutput.value.length === 1 && tempatOutput.value === ' ') { // Jika hasil output adalah 1 karakter spasi
             tempatInfo.innerHTML = '* Hasil ' + statusEnkripsi + ' anda adalah 1 karakter spasi';
