@@ -38,7 +38,7 @@ const get = {
                 Then those number converted into string, then merged, then converted again to number
 
                 Contoh : ~ theString 'bca'
-                         ~ huruf 'b' diganti menjadi 8, karena di dalam variabel KUNCI, huruf 'b' berada dalam indeks ke 8
+                         ~ huruf 'b' diganti menjadi 8, karena di dalam variabel KEY, huruf 'b' berada dalam indeks ke 8
                          ~ karena harus 2 digit angka, maka angka 8 ditambahkan 0 di depannya menjadi 08
                          ~ huruf 'c' menjadi 28
                          ~ huruf 'a' menjadi 39

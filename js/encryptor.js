@@ -1,10 +1,10 @@
 // Tanggal mulai versi pertama : Kamis, 9 September 2021 | 21.54 WIB
 
-    // Ini kunci
-    const KUNCI = [...'Pr#j["I4YRo.bW;^$v0_h8e`qL}J?u<G1%n]DA7:)N9~Vc-X*tOmi zfx=U{a&6T+EQ\'!2lK|HF>@Sgyk,Ms3dw/Bp(5CZ']; // Bisa dimodifikasi sesuai selera, namun dengan mematuhi 3 poin berikut
+    // KEY
+    const KEY = [...'Pr#j["I4YRo.bW;^$v0_h8e`qL}J?u<G1%n]DA7:)N9~Vc-X*tOmi zfx=U{a&6T+EQ\'!2lK|HF>@Sgyk,Ms3dw/Bp(5CZ']; // Bisa dimodifikasi sesuai selera, namun dengan mematuhi 3 poin berikut
     /*
         Ketentuan :
-            1. KUNCI merupakan kumpulan dari 94 karakter berbeda, yang mana tiap karakter ditulis hanya 1 kali
+            1. KEY merupakan kumpulan dari 94 karakter berbeda, yang mana tiap karakter ditulis hanya 1 kali
             2. Di dalamnya terdiri atas 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 simbol serta tanda baca (semua jenis karakter pada keyboard KECUALI garis miring ke kiri)
             3. Pengurutan tiap karakter tersebut adalah bebas/acak sesuai kehendak, yang mana tiap urutannya akan mempengaruhi hasil enkripsi-dekripsi
     */
@@ -39,14 +39,14 @@
 
                 /*
                     Aturan :
-                        1. Semua ketentuan yang berlaku untuk variabel KUNCI di atas, juga berlaku untuk setiap elemen di dalam array CERMIN
+                        1. Semua ketentuan yang berlaku untuk variabel KEY di atas, juga berlaku untuk setiap elemen di dalam array CERMIN
 
                         2. Elemen yang dimaksud adalah baris kode yang ditandai dengan huruf A sampai Z
                         
                         3. Seluruh elemen di dalam array CERMIN bersifat unik ( TIDAK boleh ada yang sama satu sama lain )
 
                         4. Tiap elemen terdiri atas 94 karakter dengan urutan yang berbeda-beda
-                           dan TIDAK BOLEH SAMA dengan urutan karakter yang ada pada variabel KUNCI
+                           dan TIDAK BOLEH SAMA dengan urutan karakter yang ada pada variabel KEY
 
                         5. Jumlah elemen dalam array CERMIN boleh ditambah atau dikurangi secara bebas dengan tetap
                            mengikuti peraturan sebelumnya, dengan catatan jumlah elemen dalam array CERMIN => min:1 max:26
@@ -67,10 +67,10 @@
                     return false;
             },
             valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
-                let cermin_diFilter           = specialGet.cermin().filter(e => KUNCI.includes(e)),
+                let cermin_diFilter           = specialGet.cermin().filter(e => KEY.includes(e)),
                     cermin_tanpaPengulangan   = clearTheDuplicate(cermin_diFilter);
 
-                return KUNCI.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
+                return KEY.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
             }
         },
 
@@ -90,7 +90,7 @@
         },
 
         geser = (karakter, arah, jumlahPenggeseran) => {
-            jumlahPenggeseran = jumlahPenggeseran >= KUNCI.length ? jumlahPenggeseran % KUNCI.length : jumlahPenggeseran;
+            jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
 
             if (jumlahPenggeseran === 0) {
                 return karakter;
@@ -104,7 +104,7 @@
 
         // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
         zztEncryptor = () => {
-            let statusValidKunci  = is.valid_KUNCI(KUNCI);
+            let statusValidKunci  = is.valid_KUNCI(KEY);
             let statusValidCermin = is.valid_CERMIN();
 
             if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
@@ -113,30 +113,30 @@
                 tempatInput.value = '';
                 tempatOutput.value = '';
 
-                if (!statusValidKunci) { // Jika variabel KUNCI tidak valid
-                    if (Array.isArray(KUNCI)) {
-                        console.log('Kesalahan : KUNCI tidak valid');
-                        console.log('Jika anda meng-edit KUNCI, harus memenuhi 3 syarat : ');
+                if (!statusValidKunci) { // Jika variabel KEY tidak valid
+                    if (Array.isArray(KEY)) {
+                        console.log('Kesalahan : KEY tidak valid');
+                        console.log('Jika anda meng-edit KEY, harus memenuhi 3 syarat : ');
                         console.log('1. Kunci harus berupa array');
                         console.log('3. Di dalamnya terdapat 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 karakter simbol serta tanda baca');
                         console.log('4. Tiap elemen bersifat unik / tidak boleh ditulis dua kali');
                     }
-                    else { // Jika KUNCI bukan array
-                        console.log('Kesalahan : Variabel KUNCI harus berupa Array');
+                    else { // If key is not array
+                        console.log('Kesalahan : Variabel KEY harus berupa Array');
                         let jenis;
-                        if (is.str(KUNCI)) {
+                        if (is.str(KEY)) {
                             jenis = 'String';
-                        } else if (typeof KUNCI === 'object') {
+                        } else if (typeof KEY === 'object') {
                             jenis = 'Objek';
-                        } else if (typeof KUNCI === 'number' && !isNaN(KUNCI)) {
+                        } else if (typeof KEY === 'number' && !isNaN(KEY)) {
                             jenis = 'Angka';
-                        } else if (typeof KUNCI === 'number' && isNaN(KUNCI)) {
+                        } else if (typeof KEY === 'number' && isNaN(KEY)) {
                             jenis = 'NaN';
                         } else {
-                            jenis = typeof KUNCI;
+                            jenis = typeof KEY;
                         }
 
-                        console.log('Jenis variabel KUNCI sekarang : ' + jenis);
+                        console.log('Jenis variabel KEY sekarang : ' + jenis);
                     }
                     console.log('');
                 }
@@ -160,19 +160,19 @@
     mulaiEnkripsiDekripsi = teksAsli => {
         teksAsli = [...teksAsli]; // Teks asli dipecah menjadi array
 
-        // Hanya string yang terdapat pada variabel KUNCI yang akan diroses
+        // Hanya string yang terdapat pada variabel KEY yang akan diroses
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
-        if (teksAsli.filter(e => KUNCI.includes(e)).length > 0) {
+        if (teksAsli.filter(e => KEY.includes(e)).length > 0) {
             let tandaBaca              = [],
                 jumlahEnkripsi         = Math.ceil(specialGet.password().length === 0 ? 1 : specialGet.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
             teksAsli.forEach((e, i) => {
-                if (!KUNCI.includes(e)) {
+                if (!KEY.includes(e)) {
                     tandaBaca.push([i, e]);
                 }
             });
-            teksAsli = teksAsli.filter(e => KUNCI.includes(e));
+            teksAsli = teksAsli.filter(e => KEY.includes(e));
 
             // 2.2 (1) : Jika enkripsi
             if (specialGet.statusEnkripsi()) {

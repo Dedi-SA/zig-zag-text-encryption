@@ -38,17 +38,17 @@ const specialGet = {
                 if (password.length < 1)
                     return [0, 0];
                 else if (password.length === 1)
-                    return [get.id(password, KUNCI), 0];
+                    return [get.id(password, KEY), 0];
                 else {
                     password = [...password];
                     let sliceValue = Math.ceil(password.length / 2);
 
-                    return [password.slice(sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0)];
+                    return [password.slice(sliceValue).map(e => get.id(e, KEY)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e, KEY)).reduce((a,b) => a+b,0)];
                 }
             },
             restOfChars: teksPertama => {
-                if (is.str(teksPertama) && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
-                    return [...KUNCI.slice(get.id(teksPertama, KUNCI)), ...KUNCI.slice(0, get.id(teksPertama, KUNCI))];
+                if (is.str(teksPertama) && teksPertama.length === 1 && KEY.includes(teksPertama)) {
+                    return [...KEY.slice(get.id(teksPertama, KEY)), ...KEY.slice(0, get.id(teksPertama, KEY))];
                 }
                 else {
                     console.log('Kesalahan : Fungsi specialGet.restOfChars() menerima argumen yang tidak valid');
