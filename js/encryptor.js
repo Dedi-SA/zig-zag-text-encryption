@@ -60,7 +60,7 @@
           ];
 
     const get = {
-        id: karakter => { // Untuk mendapatkan nomor indeks dari string yang dikirim
+        id: (karakter, selectedKey) => { // Untuk mendapatkan nomor indeks dari string yang dikirim
             if (is.str(karakter) && karakter.length === 1)
                 return KUNCI.indexOf(karakter, 0);
             else {
@@ -118,12 +118,12 @@
             if (password.length < 1)
                 return [0, 0];
             else if (password.length === 1)
-                return [get.id(password), 0];
+                return [get.id(password, KUNCI), 0];
             else {
                 password = [...password];
                 let sliceValue = Math.ceil(password.length / 2);
 
-                return [password.slice(sliceValue).map(e => get.id(e)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e)).reduce((a,b) => a+b,0)];
+                return [password.slice(sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e, KUNCI)).reduce((a,b) => a+b,0)];
             }
         },
         concatenateValue: password => {
@@ -145,7 +145,7 @@
                 return tempatInput.value.length * (1 + tempatInput.value.length);
             }
             else if (password.length === 1) {
-                let id                    = get.id(password)
+                let id                    = get.id(password, KUNCI)
                     panjang_Password      = password.length < 1 ? 67 + id : password.length + 17 + id,
                     nilaiJenisCermin      = +get.elemen('#tempatJenisCermin').value + panjang_Password + id + 4,
                     panjang_Input         = ( tempatInput.value.length < 1 ? Math.abs((72 + nilaiJenisCermin) - panjang_Password) + id : nilaiJenisCermin + panjang_Password + id + 2);
@@ -153,7 +153,7 @@
             }
             else {
                 let hasil,
-                    nilaiKonkatenasi = [...password].map(e => get.id(e) + '').map(e => e.length === 1 ? '0' + e : e).join(''); // Mengganti tiap karakter password menjadi nilai indeks masing-masing (nilai indeks dalam bentuk string)
+                    nilaiKonkatenasi = [...password].map(e => get.id(e, KUNCI) + '').map(e => e.length === 1 ? '0' + e : e).join(''); // Mengganti tiap karakter password menjadi nilai indeks masing-masing (nilai indeks dalam bentuk string)
                     nilaiKonkatenasi = nilaiKonkatenasi.split('').map((e, i) => ((i+1) % 10 === 0 ? e + ',' : e)).join(''); // Setiap sampai 5 elemen, maka elemen tersebut akan ditambahkan koma di belakangnya
                     nilaiKonkatenasi = nilaiKonkatenasi.split(',').map(e => +e); // Meng-convert masing-masing elemen menjadi integer
 
@@ -172,7 +172,7 @@
         },
         restOfChars: teksPertama => {
             if (is.str(teksPertama) && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
-                return [...KUNCI.slice(get.id(teksPertama)), ...KUNCI.slice(0, get.id(teksPertama))];
+                return [...KUNCI.slice(get.id(teksPertama, KUNCI)), ...KUNCI.slice(0, get.id(teksPertama, KUNCI))];
             }
             else {
                 console.log('Kesalahan : Fungsi get.restOfChars() menerima argumen yang tidak valid');
@@ -404,7 +404,7 @@
         // 3.1 : Deklarasi variabel sebelum proses enkripsi-dekripsi
         let arahGeser                = get.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
             password                 = get.password(), // Mendapatkan password dari tempat input password
-            nilaiPassword            = get.passwordValue(password), // Mendapatkan 
+            nilaiPassword            = get.passwordValue(password), // Mendapatkan nilai Password [number, number]
             nilaiKonkatenasiPassword = Math.ceil(get.concatenateValue(password) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
             nilaiPrimer              = password.length === 0 ? 19 : [...password].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
