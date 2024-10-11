@@ -9,10 +9,7 @@
             3. Pengurutan tiap karakter tersebut adalah bebas/acak sesuai kehendak, yang mana tiap urutannya akan mempengaruhi hasil enkripsi-dekripsi
     */
 
-    const hurufDanAngka = generalString.slice(0, generalString.indexOf('Z') + 1), // Jangan diedit !!
-          hurufKapital = generalString.slice(generalString.indexOf('A'), generalString.indexOf('Z') + 1), // Jangan diedit !!
-
-          CERMIN = [ // Array CERMIN : Setiap elemen dalam array CERMIN boleh dimodifikasi dengan mematuhi beberapa aturan di bawah
+    const CERMIN = [ // Array CERMIN : Setiap elemen dalam array CERMIN boleh dimodifikasi dengan mematuhi beberapa aturan di bawah
                 [...'w&{a0~<h3r#U;P8=-Do^eH1M@Am/QO_9xtjLF.C7?]X\'qIc+2f%v}k:Y`>bVp J*RN)zn!"ZBuE|4[Ws(TKy$G6i,dSlg5'], // [0]  A
                 [...'>Qk[Go"1#<y5)A3Lf?mv$TJX aN-zt}8O=%4~RhD/^|YM!nHUr*,cB7u2j\'gl&_qVbx`9]CW:iK;{sFPSI+w@6eZ0.(pEd'], // [1]  B
                 [...'Jt{Ph5,Sy(p#DUoLzcY72~F\'NwQ?]AHk<3bEre@_;x"n%6Tu)R1M=. K9^fW!Bq:j}$Xd-[lI0g8&vZs`OG4/mi*>CaV|+'], // [2]  C
@@ -146,7 +143,7 @@
                 else if (!statusValidCermin) { // Jika cermin yang digunakan tidak valid
                     if (Array.isArray(specialGet.cermin())) {
                         console.log('Kesalahan : Jenis cermin yang digunakan tidak valid, silahkan gunakan yang lain atau perbaiki kode');
-                        console.log('Jenis cermin : ' + hurufKapital[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
+                        console.log('Jenis cermin : ' + get.capitalLetters()[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
                     }
                     else {
                         console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 94 karakter di dalamnya');
