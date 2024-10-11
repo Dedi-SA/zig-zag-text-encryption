@@ -207,44 +207,33 @@
         str: str => {
             return typeof str === 'string';
         },
-        valid_KUNCI: () => {
-            if (Array.isArray(KUNCI)) {
-                let KUNCI_temp = [...KUNCI];
-                return KUNCI_temp.length === bersihkan_duplikat(KUNCI_temp).length && KUNCI_temp.every(e => is.str(e));
+        valid_KUNCI: (theKey) => {
+            if (Array.isArray(theKey)) {
+                return [...theKey].length === clearTheDuplicate(theKey).length && theKey.every(e => is.str(e));
             }
             else
                 return false;
         },
         valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
             let cermin_diFilter           = get.cermin().filter(e => KUNCI.includes(e)),
-                cermin_tanpaPengulangan   = bersihkan_duplikat(cermin_diFilter);
+                cermin_tanpaPengulangan   = clearTheDuplicate(cermin_diFilter);
 
             return KUNCI.length === (get.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
-        },
-        loopSTR: (str, char) => { // Mengecek apakah di dalam suatu string hanya terdapat satu jenis karakter
-            if (is.str(str)) {
-                if (is.str(char) && char.length > 0) { // Jika char merupakan string yang tidak kosong
-                    return str.length > 1 && str.split(char).join('').length === 0;
-                }
-                else { // Jika char bukan string / char adalah string tapi kosong
-                    str = [...str];
-                    let pemilahan = new Set(str);
-                    return str.length > 1 && pemilahan.size === 1;
-                }
-            }
-            else
-                return false;
         }
     },
 
-    bersihkan_duplikat = arr => {
-        if (Array.isArray(arr)) {
+    clearTheDuplicate = obj => { // Privent duplicate in string or array
+        if (Array.isArray(obj)) {
             let temp = new Set(arr)
             return [...temp];
         }
+        else if (typeof obj === 'string'){
+            let temp = new Set([...obj]);
+            return [...temp].join('');
+        }
         else {
-            console.log('Kesalahan : Fungsi bersihkan_duplikat() menerima argumen yang tidak valid\n ');
-            return [];
+            console.log('Kesalahan : Fungsi clearTheDuplicate() menerima argumen yang tidak valid\n ');
+            return false;
         }
     },
 
@@ -263,7 +252,7 @@
 
     // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
     zztEncryptor = () => {
-        let statusValidKunci  = is.valid_KUNCI();
+        let statusValidKunci  = is.valid_KUNCI(KUNCI);
         let statusValidCermin = is.valid_CERMIN();
 
         if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
@@ -479,7 +468,7 @@
         }
     };
 
-    // Elemen
+    // Simplified element
     const tempatStatusEnkripsi   = get.elemen('#tempatStatusEnkripsi'),
           tempatPassword         = get.elemen('#tempatPassword'),
           tempatJenisCermin      = get.elemen('#tempatJenisCermin'),
