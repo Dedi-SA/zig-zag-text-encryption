@@ -59,40 +59,22 @@
                 */
           ];
 
-    const get = {
-        id: (theString, theList) => { // Untuk mendapatkan nomor indeks dari string yang dikirim
-            if (is.str(theString) && theString.length === 1)
-                return theList.indexOf(theString, 0);
-            else {
-                console.log('Kesalahan : Fungsi get.id() menerima argumen yang tidak valid');
-                console.log('Jenis : ' + typeof theString);
-
-                if (is.str(theString)) { // Jika string
-                    console.log('String : ' + ( theString.length < 1 ? '<-kosong->' : (theString === ' ' ? '<-spasi->' : theString) ));
-                    console.log('Panjang string : ' + theString.length);
-                }
-                else { // Jika bukan string
-                    console.log('Nilai : ' + theString);
-                }
-
-                console.log('')
-            }
-        },
+    const specialGet = {
         cermin: () => { // return : Array
             return CERMIN[+tempatJenisCermin.value]; // Jenis cermin yang akan dipakai
         },
         nilaiCermin: str => {
             if (is.str(str) && str.length === 1) {
                 
-                if (get.statusEnkripsi()) { // Jika Enkripsi
-                    return get.cermin()[KUNCI_diurutkan.indexOf(str)];
+                if (specialGet.statusEnkripsi()) { // Jika Enkripsi
+                    return specialGet.cermin()[KUNCI_diurutkan.indexOf(str)];
                 }
                 else { // Jika Dekripsi
-                    return KUNCI_diurutkan[get.cermin().indexOf(str)];
+                    return KUNCI_diurutkan[specialGet.cermin().indexOf(str)];
                 }
             }
             else {
-                console.log('Kesalahan : Fungsi get.nilaiCermin() menerima argumen yang tidak valid');
+                console.log('Kesalahan : Fungsi specialGet.nilaiCermin() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof str);
 
                 if (is.str(str)) { // Jika string
@@ -109,7 +91,7 @@
             }
         },
         statusEnkripsi: () => {
-            return get.elemen('#tempatStatusEnkripsi').value === 'enkripsi';
+            return specialGet.elemen('#tempatStatusEnkripsi').value === 'enkripsi';
         },
         password: () => {
             return tempatPassword.value;
@@ -147,7 +129,7 @@
             else if (password.length === 1) {
                 let id                    = get.id(password, KUNCI)
                     panjang_Password      = password.length < 1 ? 67 + id : password.length + 17 + id,
-                    nilaiJenisCermin      = +get.elemen('#tempatJenisCermin').value + panjang_Password + id + 4,
+                    nilaiJenisCermin      = +specialGet.elemen('#tempatJenisCermin').value + panjang_Password + id + 4,
                     panjang_Input         = ( tempatInput.value.length < 1 ? Math.abs((72 + nilaiJenisCermin) - panjang_Password) + id : nilaiJenisCermin + panjang_Password + id + 2);
                 return panjang_Password + nilaiJenisCermin + panjang_Input + 11;
             }
@@ -168,14 +150,14 @@
             else if (namaElemen.startsWith('#'))
                 return document.getElementById(namaElemen.slice(1));
             else
-                console.log('Kesalahan : Fungsi get.elemen() menerima argumen yang tidak valid\n ');
+                console.log('Kesalahan : Fungsi specialGet.elemen() menerima argumen yang tidak valid\n ');
         },
         restOfChars: teksPertama => {
             if (is.str(teksPertama) && teksPertama.length === 1 && KUNCI.includes(teksPertama)) {
                 return [...KUNCI.slice(get.id(teksPertama, KUNCI)), ...KUNCI.slice(0, get.id(teksPertama, KUNCI))];
             }
             else {
-                console.log('Kesalahan : Fungsi get.restOfChars() menerima argumen yang tidak valid');
+                console.log('Kesalahan : Fungsi specialGet.restOfChars() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof teksPertama);
 
                 if (is.str(teksPertama)) { // Jika string
@@ -215,10 +197,10 @@
                 return false;
         },
         valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
-            let cermin_diFilter           = get.cermin().filter(e => KUNCI.includes(e)),
+            let cermin_diFilter           = specialGet.cermin().filter(e => KUNCI.includes(e)),
                 cermin_tanpaPengulangan   = clearTheDuplicate(cermin_diFilter);
 
-            return KUNCI.length === (get.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
+            return KUNCI.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
         }
     },
 
@@ -244,7 +226,7 @@
             return karakter;
         }
         else {
-            let arr = get.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
+            let arr = specialGet.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
 
             return ( arah ? arr[arr.length - jumlahPenggeseran] : arr[jumlahPenggeseran] );
         }
@@ -289,13 +271,13 @@
                 console.log('');
             }
             else if (!statusValidCermin) { // Jika cermin yang digunakan tidak valid
-                if (Array.isArray(get.cermin())) {
+                if (Array.isArray(specialGet.cermin())) {
                     console.log('Kesalahan : Jenis cermin yang digunakan tidak valid, silahkan gunakan yang lain atau perbaiki kode');
                     console.log('Jenis cermin : ' + hurufKapital[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
                 }
                 else {
                     console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 94 karakter di dalamnya');
-                    console.log('Cermin yang anda gunakan : ' + typeof get.cermin());
+                    console.log('Cermin yang anda gunakan : ' + typeof specialGet.cermin());
                 }
                 console.log('');
             }
@@ -312,7 +294,7 @@
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
         if (teksAsli.filter(e => KUNCI.includes(e)).length > 0) {
             let tandaBaca              = [],
-                jumlahEnkripsi         = Math.ceil(get.password().length === 0 ? 1 : get.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
+                jumlahEnkripsi         = Math.ceil(specialGet.password().length === 0 ? 1 : specialGet.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
             teksAsli.forEach((e, i) => {
@@ -323,10 +305,10 @@
             teksAsli = teksAsli.filter(e => KUNCI.includes(e));
 
             // 2.2 (1) : Jika enkripsi
-            if (get.statusEnkripsi()) {
-                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + (+get.elemen('#tempatJenisCermin').value);
+            if (specialGet.statusEnkripsi()) {
+                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((specialGet.elemen('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+specialGet.elemen('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
-                    teksAsli = teksAsli.map(e => get.nilaiCermin(e)); // Pencerminan
+                    teksAsli = teksAsli.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlahRefleksi--;
                 }
 
@@ -353,7 +335,7 @@
                 }
 
             // 2.2 (2) : Jika dekripsi
-            if (!get.statusEnkripsi()) {
+            if (!specialGet.statusEnkripsi()) {
                 if (hasil.length > 1){
                     let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
                         temp;
@@ -368,9 +350,9 @@
                 }
                 hasil = hasil.reverse(); // Pembalik
 
-                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.elemen('#tempatPassword').maxLength / 17) * 100) - get.password().length) + (+get.elemen('#tempatJenisCermin').value);
+                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((specialGet.elemen('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+specialGet.elemen('#tempatJenisCermin').value);
                 while (jumlah_Refleksi > 0) {
-                    hasil = hasil.map(e => get.nilaiCermin(e)); // Pencerminan
+                    hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlah_Refleksi--;
                 }
 
@@ -402,10 +384,10 @@
     penggeseranVertikal = (teks_arr, nomorUrutBlok) => {
 
         // 3.1 : Deklarasi variabel sebelum proses enkripsi-dekripsi
-        let arahGeser                = get.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
-            password                 = get.password(), // Mendapatkan password dari tempat input password
-            nilaiPassword            = get.passwordValue(password), // Mendapatkan nilai Password [number, number]
-            nilaiKonkatenasiPassword = Math.ceil(get.concatenateValue(password) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
+        let arahGeser                = specialGet.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
+            password                 = specialGet.password(), // Mendapatkan password dari tempat input password
+            nilaiPassword            = specialGet.passwordValue(password), // Mendapatkan nilai Password [number, number]
+            nilaiKonkatenasiPassword = Math.ceil(specialGet.concatenateValue(password) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
             nilaiPrimer              = password.length === 0 ? 19 : [...password].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
             jumlahPenguncian         = Math.ceil(password.length < 1 ? 4 : password.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
@@ -439,7 +421,7 @@
 
     // Berfungsi untuk memberi peringatan kepada pengguna jika hasil output terdapat karakter spasi
     ifContain_spaceChar = () => {
-        let statusEnkripsi = get.elemen('#tempatStatusEnkripsi').value;
+        let statusEnkripsi = specialGet.elemen('#tempatStatusEnkripsi').value;
 
         if (tempatOutput.value.length === 1 && tempatOutput.value === ' ') { // Jika hasil output adalah 1 karakter spasi
             tempatInfo.innerHTML = '* Hasil ' + statusEnkripsi + ' anda adalah 1 karakter spasi';
