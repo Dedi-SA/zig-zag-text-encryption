@@ -1,0 +1,54 @@
+    body {
+        font-family: 'Arial', 'Segoe UI', Verdana, sans-serif;
+    }
+    #logo-utama {
+        display: block;
+        margin: 10px auto 40px auto;
+        max-height: 60px;
+    }
+    #pengaturan {
+        max-width: 450px;
+        padding-bottom: 15px;
+        border-bottom: 5px solid black;
+        border-radius: 5px;
+        z-index: 2;
+        margin: auto;
+    }
+    .pengaturan-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 12px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .pengaturan-keterangan {
+        display: inline-block;
+        width: 190px;
+        font-size: 19px;
+    }
+    .pengaturan-input {
+        display: inline-block;
+    }
+    #tempatStatusEnkripsi, #tempatJenisCermin, #tempatJumlahRefleksi {
+        width: 120px;
+        font-size: 20px;
+        width: 200px;
+    }
+    #tempatPassword {
+        width: 192px;
+    }
+    .input, .output {
+        display: block;
+        margin: 35px auto 0px auto ;
+        width: 65%;
+        height: 50px;
+        font-size: 25px;
+        text-align: center;
+        cursor: text;
+    }
+    #tempatInfo {
+        display: block;
+        text-align: center;
+        color: red !important;
+        cursor: default;
+    }
