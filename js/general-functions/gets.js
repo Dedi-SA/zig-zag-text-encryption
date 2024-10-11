@@ -1,7 +1,7 @@
 const get = {
-        id: (theString, theList) => { // Untuk mendapatkan nomor indeks dari string yang dikirim
+        id: (theString, theReference) => { // Untuk mendapatkan nomor indeks dari string yang dikirim
             if (is.str(theString) && theString.length === 1)
-                return theList.indexOf(theString, 0);
+                return theReference.indexOf(theString, 0);
             else {
                 console.log('Kesalahan : Fungsi get.id() menerima argumen yang tidak valid');
                 console.log('Jenis : ' + typeof theString);
