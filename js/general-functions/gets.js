@@ -66,7 +66,7 @@ const get = {
             else
                 console.log('Kesalahan : Fungsi specialGet.elemen() menerima argumen yang tidak valid\n ');
         },
-        allCapitalLetters: () => {
+        capitalLetters: () => {
             return generalString.slice(generalString.indexOf('A'), generalString.indexOf('Z') + 1)
         }
     };
