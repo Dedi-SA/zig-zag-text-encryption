@@ -224,7 +224,7 @@
 
     clearTheDuplicate = obj => { // Privent duplicate in string or array
         if (Array.isArray(obj)) {
-            let temp = new Set(arr)
+            let temp = new Set(obj)
             return [...temp];
         }
         else if (typeof obj === 'string'){
