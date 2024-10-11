@@ -199,21 +199,6 @@
             });
 
             console.log('Karakter yang hilang : ' + temp);
-        },
-        fibonacci: (nilai_A, nilai_B, jumlah_yangDiinginkan) => {
-            // Berfungsi untuk mendapatkan Deret Fibonacci dalam array
-            // Tidak ada hubungannya dengan project ini, cuma iseng saja
-
-            if (Number.isInteger(nilai_A) && Number.isInteger(nilai_B) && Number.isInteger(jumlah_yangDiinginkan) && jumlah_yangDiinginkan >= 0) {
-                let hasil = [nilai_A, nilai_B],
-                    penghitungan = [nilai_A, nilai_B];
-                while (hasil.length < jumlah_yangDiinginkan) {
-                    penghitungan = [penghitungan[1], penghitungan[0] + penghitungan[1]];
-                    hasil.push(penghitungan[1]);
-                }
-                
-                return hasil;
-            }
         }
     },
 
