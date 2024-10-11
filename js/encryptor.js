@@ -60,7 +60,7 @@
           ];
 
     const get = {
-        id: karakter => { // Untuk mendapatkan nomor indeks dari string yang dikirim (nomor indeks sesuai urutan pada KUNCI)
+        id: karakter => { // Untuk mendapatkan nomor indeks dari string yang dikirim
             if (is.str(karakter) && karakter.length === 1)
                 return KUNCI.indexOf(karakter, 0);
             else {
@@ -467,44 +467,5 @@
             tempatInfo.innerHTML = '';
         }
     };
-
-    // Simplified element
-    const tempatStatusEnkripsi   = get.elemen('#tempatStatusEnkripsi'),
-          tempatPassword         = get.elemen('#tempatPassword'),
-          tempatJenisCermin      = get.elemen('#tempatJenisCermin'),
-          tempatJumlahRefleksi   = get.elemen('#tempatJumlahRefleksi'),
-          tempatInput            = get.elemen('#tempatInput'),
-          tempatOutput           = get.elemen('#tempatOutput'),
-          tempatInfo             = get.elemen('#tempatInfo');
-
-    const tempatInput_TextChanged = () => {
-                zztEncryptor();
-          },
-
-          tempatStatusEnkripsi_ValueChanged = () => {
-                zztEncryptor();
-          },
-
-          tempatStatusEnkripsi_DoubleClick = () => {
-                // Membalik kondisi status enkripsi
-                tempatStatusEnkripsi.value = tempatStatusEnkripsi.value === 'enkripsi' ? 'dekripsi' : 'enkripsi';
-
-                zztEncryptor();
-          },
-
-          tempatPassword_TextChanged = () => {
-                // Mem-filter tempat password sesuai variabel "KUNCI_diurutkan"
-                tempatPassword.value = [...get.password()].filter(e => KUNCI_diurutkan.includes(e)).join('');
-
-                zztEncryptor();
-          },
-
-          tempatJenisCermin_ValueChanged = () => {
-                zztEncryptor();
-          },
-
-          tempatJumlahRefleksi_ValueChanged = () => {
-                zztEncryptor();
-          };
 
 // Tanggal selesai versi pertama : Rabu, 22 September 2021 09.53
