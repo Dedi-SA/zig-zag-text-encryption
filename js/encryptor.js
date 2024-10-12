@@ -1,13 +1,13 @@
-    // Kumpulan fungsi yang menghasilkan nilai boolean
     const specialIs = {
             valid_KUNCI: (theKey) => {
-                if (Array.isArray(theKey)) {
+                if (Array.isArray(theKey) && theKey.length === keyStandartLength) {
+                    
                     return [...theKey].length === noDuplicate(theKey).length && theKey.every(e => is.str(e));
                 }
                 else
                     return false;
             },
-            valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
+            valid_CERMIN: (theMirror) => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
                 let cermin_diFilter           = specialGet.cermin().filter(e => KEY.includes(e)),
                     cermin_tanpaPengulangan   = noDuplicate(cermin_diFilter);
 
@@ -30,54 +30,9 @@
 
         // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
         zztEncryptor = () => {
-            let statusValidKunci  = specialIs.valid_KUNCI(KEY);
-            let statusValidCermin = specialIs.valid_CERMIN();
 
-            if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
+            if (tempatInput.value.length > 0)
                 tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
-            else {
-                tempatInput.value = '';
-                tempatOutput.value = '';
-
-                if (!statusValidKunci) { // Jika variabel KEY tidak valid
-                    if (Array.isArray(KEY)) {
-                        console.log('Kesalahan : KEY tidak valid');
-                        console.log('Jika anda meng-edit KEY, harus memenuhi 3 syarat : ');
-                        console.log('1. Kunci harus berupa array');
-                        console.log('3. Di dalamnya terdapat 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 karakter simbol serta tanda baca');
-                        console.log('4. Tiap elemen bersifat unik / tidak boleh ditulis dua kali');
-                    }
-                    else { // If key is not array
-                        console.log('Kesalahan : Variabel KEY harus berupa Array');
-                        let jenis;
-                        if (is.str(KEY)) {
-                            jenis = 'String';
-                        } else if (typeof KEY === 'object') {
-                            jenis = 'Objek';
-                        } else if (typeof KEY === 'number' && !isNaN(KEY)) {
-                            jenis = 'Angka';
-                        } else if (typeof KEY === 'number' && isNaN(KEY)) {
-                            jenis = 'NaN';
-                        } else {
-                            jenis = typeof KEY;
-                        }
-
-                        console.log('Jenis variabel KEY sekarang : ' + jenis);
-                    }
-                    console.log('');
-                }
-                else if (!statusValidCermin) { // Jika cermin yang digunakan tidak valid
-                    if (Array.isArray(specialGet.cermin())) {
-                        console.log('Kesalahan : Jenis cermin yang digunakan tidak valid, silahkan gunakan yang lain atau perbaiki kode');
-                        console.log('Jenis cermin : ' + get.capitalLetters()[+tempatJenisCermin.value] + ' [' + tempatJenisCermin.value + ']');
-                    }
-                    else {
-                        console.log('Kesalahan : Jenis cermin yang digunakan harus berupa array dengan 94 karakter di dalamnya');
-                        console.log('Cermin yang anda gunakan : ' + typeof specialGet.cermin());
-                    }
-                    console.log('');
-                }
-            }
 
             ifContain_spaceChar();
     },
