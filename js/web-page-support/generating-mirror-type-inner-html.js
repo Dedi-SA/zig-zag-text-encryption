@@ -1,6 +1,6 @@
-// Generate inner htmlMembuat daftar 'value' untuk tempatJenisCermin
-for (let i = 0; i < get.capitalLetters().length; i++) {
-    if (i >= mirrors.length ) { // Berenti jika indeks lebih atau sama dengan panjang Cermin
+// By standard, mirror is limited to 26
+for (let i = 0; i < 26; i++) {
+    if (i >= mirrors.length) { // Stop if 'i' large of equal to mirrors.length
         break;
     }
 
