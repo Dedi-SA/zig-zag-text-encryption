@@ -1,15 +1,5 @@
-// Tanggal mulai versi pertama : Kamis, 9 September 2021 | 21.54 WIB
-
-    // KEY
-    const KEY = [...'Pr#j["I4YRo.bW;^$v0_h8e`qL}J?u<G1%n]DA7:)N9~Vc-X*tOmi zfx=U{a&6T+EQ\'!2lK|HF>@Sgyk,Ms3dw/Bp(5CZ']; // Bisa dimodifikasi sesuai selera, namun dengan mematuhi 3 poin berikut
-    /*
-        Ketentuan :
-            1. KEY merupakan kumpulan dari 94 karakter berbeda, yang mana tiap karakter ditulis hanya 1 kali
-            2. Di dalamnya terdiri atas 26 alfabet kecil, 26 alfabet KAPITAL, 10 digit angka, 1 karakter spasi, dan 31 simbol serta tanda baca (semua jenis karakter pada keyboard KECUALI garis miring ke kiri)
-            3. Pengurutan tiap karakter tersebut adalah bebas/acak sesuai kehendak, yang mana tiap urutannya akan mempengaruhi hasil enkripsi-dekripsi
-    */
-
-    const CERMIN = [ // Array CERMIN : Setiap elemen dalam array CERMIN boleh dimodifikasi dengan mematuhi beberapa aturan di bawah
+// Array CERMIN : Setiap elemen dalam array CERMIN boleh dimodifikasi dengan mematuhi beberapa aturan di bawah
+    const CERMIN = [
                 [...'w&{a0~<h3r#U;P8=-Do^eH1M@Am/QO_9xtjLF.C7?]X\'qIc+2f%v}k:Y`>bVp J*RN)zn!"ZBuE|4[Ws(TKy$G6i,dSlg5'], // [0]  A
                 [...'>Qk[Go"1#<y5)A3Lf?mv$TJX aN-zt}8O=%4~RhD/^|YM!nHUr*,cB7u2j\'gl&_qVbx`9]CW:iK;{sFPSI+w@6eZ0.(pEd'], // [1]  B
                 [...'Jt{Ph5,Sy(p#DUoLzcY72~F\'NwQ?]AHk<3bEre@_;x"n%6Tu)R1M=. K9^fW!Bq:j}$Xd-[lI0g8&vZs`OG4/mi*>CaV|+'], // [2]  C
