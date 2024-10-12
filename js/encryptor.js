@@ -55,10 +55,7 @@
           ];
 
     // Kumpulan fungsi yang menghasilkan nilai boolean
-    const is = {
-            str: str => {
-                return typeof str === 'string';
-            },
+    const specialIs = {
             valid_KUNCI: (theKey) => {
                 if (Array.isArray(theKey)) {
                     return [...theKey].length === noDuplicate(theKey).length && theKey.every(e => is.str(e));
@@ -89,8 +86,8 @@
 
         // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
         zztEncryptor = () => {
-            let statusValidKunci  = is.valid_KUNCI(KEY);
-            let statusValidCermin = is.valid_CERMIN();
+            let statusValidKunci  = specialIs.valid_KUNCI(KEY);
+            let statusValidCermin = specialIs.valid_CERMIN();
 
             if (tempatInput.value.length > 0 && statusValidKunci && statusValidCermin)
                 tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
