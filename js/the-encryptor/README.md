@@ -44,5 +44,3 @@ Here is the KEY if sorted :
     5. There must be no twin elements in it.
 
        If any are found, then the Mirrors will be declared invalid, and the program will not run.
-
-    6.
