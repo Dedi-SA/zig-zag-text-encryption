@@ -61,31 +61,16 @@
             },
             valid_KUNCI: (theKey) => {
                 if (Array.isArray(theKey)) {
-                    return [...theKey].length === clearTheDuplicate(theKey).length && theKey.every(e => is.str(e));
+                    return [...theKey].length === noDuplicate(theKey).length && theKey.every(e => is.str(e));
                 }
                 else
                     return false;
             },
             valid_CERMIN: () => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
                 let cermin_diFilter           = specialGet.cermin().filter(e => KEY.includes(e)),
-                    cermin_tanpaPengulangan   = clearTheDuplicate(cermin_diFilter);
+                    cermin_tanpaPengulangan   = noDuplicate(cermin_diFilter);
 
                 return KEY.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
-            }
-        },
-
-        clearTheDuplicate = obj => { // Privent duplicate in string or array
-            if (Array.isArray(obj)) {
-                let temp = new Set(obj)
-                return [...temp];
-            }
-            else if (typeof obj === 'string'){
-                let temp = new Set([...obj]);
-                return [...temp].join('');
-            }
-            else {
-                console.log('Kesalahan : Fungsi clearTheDuplicate() menerima argumen yang tidak valid\n ');
-                return false;
             }
         },
 
