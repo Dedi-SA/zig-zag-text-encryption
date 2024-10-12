@@ -1,6 +1,6 @@
 // Generate inner htmlMembuat daftar 'value' untuk tempatJenisCermin
 for (let i = 0; i < get.capitalLetters().length; i++) {
-    if (i >= CERMIN.length ) { // Berenti jika indeks lebih atau sama dengan panjang Cermin
+    if (i >= mirrors.length ) { // Berenti jika indeks lebih atau sama dengan panjang Cermin
         break;
     }
 
