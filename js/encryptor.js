@@ -1,40 +1,23 @@
-    const specialIs = {
-            valid_KUNCI: (theKey) => {
-                if (Array.isArray(theKey) && theKey.length === keyStandartLength) {
-                    
-                    return [...theKey].length === noDuplicate(theKey).length && theKey.every(e => is.str(e));
-                }
-                else
-                    return false;
-            },
-            valid_CERMIN: (theMirror) => { // Untuk mengecek apakah jenis cermin yang digunakan valid atau tidak
-                let cermin_diFilter           = specialGet.cermin().filter(e => KEY.includes(e)),
-                    cermin_tanpaPengulangan   = noDuplicate(cermin_diFilter);
+const geser = (karakter, arah, jumlahPenggeseran) => {
+        jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
 
-                return KEY.length === (specialGet.cermin().length + cermin_diFilter.length + cermin_tanpaPengulangan.length) / 3;
-            }
-        },
+        if (jumlahPenggeseran === 0) {
+            return karakter;
+        }
+        else {
+            let arr = specialGet.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
 
-        geser = (karakter, arah, jumlahPenggeseran) => {
-            jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
+            return ( arah ? arr[arr.length - jumlahPenggeseran] : arr[jumlahPenggeseran] );
+        }
+    },
 
-            if (jumlahPenggeseran === 0) {
-                return karakter;
-            }
-            else {
-                let arr = specialGet.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
+    // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
+    zztEncryptor = () => {
 
-                return ( arah ? arr[arr.length - jumlahPenggeseran] : arr[jumlahPenggeseran] );
-            }
-        },
+        if (tempatInput.value.length > 0)
+            tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
 
-        // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
-        zztEncryptor = () => {
-
-            if (tempatInput.value.length > 0)
-                tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
-
-            ifContain_spaceChar();
+        ifContain_spaceChar();
     },
     
     // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
