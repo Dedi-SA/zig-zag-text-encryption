@@ -16,7 +16,7 @@
                     Enkripsi / Dekripsi
                 </div>
                 <div class="pengaturan-input">
-                    <select id="tempatStatusEnkripsi" onchange="tempatStatusEnkripsi_ValueChanged()" ondblclick="tempatStatusEnkripsi_DoubleClick()">
+                    <select id="tempatStatusEnkripsi" class="value-change double-click">
                         <option value="enkripsi">Enkripsi</option>
                         <option value="dekripsi">Dekripsi</option>
                     </select>
@@ -27,7 +27,7 @@
                     Password
                 </div>
                 <div class="pengaturan-input">
-                    <input type="text" id="tempatPassword" oninput="tempatPassword_TextChanged()" placeholder="password (opsional)" maxlength="20" spellcheck="false">
+                    <input type="text" id="tempatPassword" class="password-input" placeholder="password (opsional)" maxlength="20" spellcheck="false">
                 </div>
             </div>
             <div class="pengaturan-container"> <!-- Jenis Cermin -->
@@ -35,7 +35,7 @@
                     Jenis Cermin
                 </div>
                 <div class="pengaturan-input">
-                    <select id="tempatJenisCermin" onchange="tempatJenisCermin_ValueChanged()">
+                    <select id="tempatJenisCermin" class="value-change">
                     </select>
                 </div>
             </div>
@@ -44,16 +44,16 @@
                     Jumlah Refleksi
                 </div>
                 <div class="pengaturan-input">
-                    <select id="tempatJumlahRefleksi" onchange="tempatJumlahRefleksi_ValueChanged()">
+                    <select id="tempatJumlahRefleksi" class="value-change">
                     </select>
                 </div>
             </div>
         </div>
-        <div id="tempatInput-container">
-            <input type="text" class="input" id="tempatInput" placeholder="Masukkan teks anda" oninput="tempatInput_TextChanged()" spellcheck="false">
+        <div id="tempatInput-container"> <!-- Input -->
+            <input type="text" class="input value-input" id="tempatInput" placeholder="Masukkan teks anda" spellcheck="false">
         </div>
-        <div id="tempatOutput-container">
-            <input type="text" class="output" id="tempatOutput" placeholder="Hasil" spellcheck="false" disabled="true">
+        <div id="tempatOutput-container"> <!-- Output -->
+            <input type="text" class="output value-change" id="tempatOutput" placeholder="Hasil" spellcheck="false" disabled="true">
             <span id="tempatInfo"></span>
         </div>
     </div>
@@ -72,12 +72,13 @@
     <script src="./js/the-encryptor/key.js"></script> <!-- KEY -->
     <script src="./js/the-encryptor/mirrors.js"></script> <!-- Mirrors -->
     <script src="./js/encryptor.js"></script> <!-- Main Engine -->
+    <script src="./js/the-encryptor/initial.js"></script> <!-- Engine Starter -->
 
     <!-- Web page support -->
     <script src="./js/web-page-support/special-gets.js"></script> <!-- Declaring specialGet() function -->
     <script src="./js/web-page-support/generating-mirror-type-inner-html.js"></script> <!-- Generate inner html mirror type -->
     <script src="./js/web-page-support/generating-reflection-number-inner-html.js"></script> <!-- Generate inner html reflection number -->
-    <script src="./js/web-page-support/input-change-detected.js"></script> <!-- Input detected -->
+    <script src="./js/web-page-support/value-change-detected.js"></script> <!-- Input detected -->
     <script src="./js/web-page-support/warning-result-contain-space-char.js"></script> <!-- Warning, the result contain space char -->
     <script src="./js/web-page-support/cursor-focus-to-input.js"></script> <!-- Focusing cursor -->
 
