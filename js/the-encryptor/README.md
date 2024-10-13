@@ -1,7 +1,7 @@
 # the-encryptor
 
-**the-encryptor** is the main engine of encryption and decryption.
-It is portable and can be applied to other projects.
+**the-encryptor** is the core engine of ZZTE.
+It is portable and can be used in other projects.
 
 ## Contents List
 1. [key.js](#keyjs)
