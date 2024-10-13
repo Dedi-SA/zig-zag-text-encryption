@@ -4,8 +4,8 @@
 It is portable and can be applied to other projects.
 
 ## Contents List
-- [key.js](#key.js the central variable)
-- [mirrors.js](#a function that required to reflecting the string)
+- [key.js](# key.js the central variable)
+- [mirrors.js](# a function that required to reflecting the string)
 
 
 ## key.js
