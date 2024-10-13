@@ -15,7 +15,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     zztEncryptor = () => {
 
         if (tempatInput.value.length > 0)
-            tempatOutput.value = mulaiEnkripsiDekripsi(tempatInput.value);
+            return mulaiEnkripsiDekripsi(tempatInput.value);
 
         ifContain_spaceChar();
     },
