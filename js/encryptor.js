@@ -1,3 +1,5 @@
+
+
 const geser = (karakter, arah, jumlahPenggeseran) => {
         jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
 
@@ -12,12 +14,13 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
 
     // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
-    zztEncryptor = () => {
-
-        if (tempatInput.value.length > 0)
-            return mulaiEnkripsiDekripsi(tempatInput.value);
-
-        ifContain_spaceChar();
+    zztEncryptor = (theText) => {
+        if (theText.length > 0) { // The 
+            return mulaiEnkripsiDekripsi(theText);
+        }
+        else {
+            return theText;
+        }
     },
     
     // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
