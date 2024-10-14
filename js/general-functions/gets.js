@@ -3,7 +3,7 @@ const get = {
             if (is.str(theString) && theString.length === 1)
                 return theReference.indexOf(theString, 0);
             else {
-                console.log('Fungsi get.id() menerima argumen yang tidak valid');
+                console.log(invArg('get.id()'));
             }
         },
 
@@ -28,7 +28,7 @@ const get = {
                 }
             }
             else {
-                console.log('The argument that sent to get.reverse() function is invalid')
+                console.log(invArg('get.reverse()'))
             }
         },
         
@@ -64,7 +64,7 @@ const get = {
             else if (namaElemen.startsWith('#'))
                 return document.getElementById(namaElemen.slice(1));
             else
-                console.log('Kesalahan : Fungsi specialGet.elemen() menerima argumen yang tidak valid\n ');
+                invArg('get.element()');
         },
         capitalLetters: () => {
             return generalString.slice(generalString.indexOf('A'), generalString.indexOf('Z') + 1)
