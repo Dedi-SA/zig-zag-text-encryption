@@ -1,11 +1,11 @@
-// To tell the user if the output value is contain space character ' '.
-ifContain_spaceChar = () => {
+// To tell the user if the output value is contain space character ' '
+const resultSpaceWarning = () => {
     let statusEnkripsi = get.element('#tempatStatusEnkripsi').value;
 
     if (tempatOutput.value.length === 1 && tempatOutput.value === ' ') { // Jika hasil output adalah 1 karakter spasi
         tempatInfo.innerHTML = '* Hasil ' + statusEnkripsi + ' anda adalah 1 karakter spasi';
     }
-    else if (tempatOutput.value.length > 1 && [...tempatOutput.value].every(e => e === ' ')) { // Jika hasil output adalah karakter spasi semuanya (2 atau lebih)
+    else if (tempatOutput.value.length > 1 && noDuplicate(tempatOutput.value) === ' ') { // Jika hasil output adalah karakter spasi semuanya (2 atau lebih)
         tempatInfo.innerHTML = '* Hasil ' + statusEnkripsi + ' anda adalah ' + tempatOutput.value.length + ' karakter spasi';
     }
     else if (tempatOutput.value.startsWith('  ') || tempatOutput.value.endsWith('  ')) { // Jika hasil output terdapat karakter spasi yang berhimpitan di awal atau di akhir
