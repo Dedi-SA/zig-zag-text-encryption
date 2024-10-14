@@ -13,8 +13,7 @@ const specialGet = {
                     }
                 }
                 else {
-                    console.log('Kesalahan : Fungsi specialGet.nilaiCermin() menerima argumen yang tidak valid');
-                    console.log('Jenis : ' + typeof str);
+                    invArg('specialGet()');
 
                     if (is.str(str)) { // Jika string
                         console.log('String : ' + ( str.length < 1 ? '<-kosong->' : (str === ' ' ? '<-spasi->' : str) ));
@@ -24,8 +23,8 @@ const specialGet = {
                         console.log('Nilai : ' + str);
                     }
                     
-                    tempatInput.value = '';
-                    tempatOutput.value = '';
+                    get.element('#tempatInput').value = '';
+                    get.element('#tempatOutput').value = '';
                 }
             },
             statusEnkripsi: () => {
@@ -51,18 +50,7 @@ const specialGet = {
                     return [...KEY.slice(get.id(teksPertama, KEY)), ...KEY.slice(0, get.id(teksPertama, KEY))];
                 }
                 else {
-                    console.log('Kesalahan : Fungsi specialGet.restOfChars() menerima argumen yang tidak valid');
+                    invArg('specialGet.restOfChars()');
                 }
-            },
-
-             // If there a specific character that not registered in generalString variable, then it will be push into tempArr
-            karakterHilang: theString => {
-                let tempArr = [];
-                generalString.forEach((e, i) => {
-                    if (theString.includes(e) === false)
-                        tempArr.push(e)
-                });
-
-                console.log('Karakter yang hilang : ' + tempArr);
             }
         };
