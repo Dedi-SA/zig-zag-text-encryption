@@ -10,4 +10,15 @@ const keyStandartLength = 94, // The required number of elements needed for a va
             }
             else
                 return false;
-      }
+      },
+
+      getTheLostStrings = theKey => {
+        let theLostStrings = [];
+
+        generalString.forEach(e => {
+            if (theKey.includes(e) === false)
+                theLostStrings.push(e);
+        });
+
+        return theLostStrings;
+      };
