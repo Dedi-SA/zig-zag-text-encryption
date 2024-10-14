@@ -10,7 +10,6 @@ const   inputElements = document.querySelectorAll('.value-input'),
         inputPasswordElements = document.querySelectorAll('.password-input');
         
 const   startTheProcess = () => {
-            console.log(tempatInput.value)
             tempatOutput.value = ZZTE(tempatInput.value);
             resultSpaceWarning();
         };
