@@ -1,4 +1,6 @@
 // Return string
 const invArg = (functionName) => {
-    return 'Warning, invalid argument suplied to ' + functionName;
+    if (typeof functionName === 'string') {
+        console.log('Warning, invalid argument suplied to ' + functionName + ' function.');
+    }
 }
