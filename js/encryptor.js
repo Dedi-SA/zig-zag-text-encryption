@@ -14,12 +14,24 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
 
     // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
-    zztEncryptor = (theText) => {
-        if (theText.length > 0) { // The 
-            return mulaiEnkripsiDekripsi(theText);
+    zztEncryptor = (theText, thePassword) => {
+        if (typeof theText === 'string') {
+            if (theText.length > 0) {
+                if (typeof thePassword === 'string') {
+                    return mulaiEnkripsiDekripsi(theText);
+                }
+                else {
+                    invArg('zztEncryptor()');
+                    console.log('The password must be string');
+                }
+            }
+            else {
+                return theText;
+            }
         }
         else {
-            return theText;
+            invArg('zztEncryptor()');
+            console.log('The input must be string');
         }
     },
     
