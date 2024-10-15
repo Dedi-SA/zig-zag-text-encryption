@@ -3,7 +3,7 @@ const get = {
             if (is.str(theString) && theString.length === 1)
                 return theReference.indexOf(theString, 0);
             else {
-                console.log(invArg('get.id()'));
+                invArg('get.id()');
             }
         },
 
@@ -28,7 +28,7 @@ const get = {
                 }
             }
             else {
-                console.log(invArg('get.reverse()'))
+                invArg('get.reverse()');
             }
         },
         
