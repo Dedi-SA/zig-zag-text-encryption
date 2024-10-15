@@ -18,7 +18,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
         if (typeof theText === 'string') {
             if (theText.length > 0) {
                 if (typeof thePassword === 'string') {
-                    return mulaiEnkripsiDekripsi([...theText]);
+                    return mulaiEnkripsiDekripsi([...theText], thePassword);
                 }
                 else {
                     invArg('zztEncryptor()');
@@ -36,7 +36,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
     
     // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
-    mulaiEnkripsiDekripsi = theTextArr => {
+    mulaiEnkripsiDekripsi = (theTextArr, thePassword) => {
 
         // Hanya string yang terdapat pada variabel KEY yang akan diroses
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
