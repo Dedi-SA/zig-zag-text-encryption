@@ -18,7 +18,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
         if (typeof theText === 'string') {
             if (theText.length > 0) {
                 if (typeof thePassword === 'string') {
-                    return mulaiEnkripsiDekripsi(theText);
+                    return mulaiEnkripsiDekripsi([...theText]);
                 }
                 else {
                     invArg('zztEncryptor()');
@@ -36,43 +36,42 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
     
     // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
-    mulaiEnkripsiDekripsi = teksAsli => {
-        teksAsli = [...teksAsli]; // Teks asli dipecah menjadi array
+    mulaiEnkripsiDekripsi = theTextArr => {
 
         // Hanya string yang terdapat pada variabel KEY yang akan diroses
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
-        if (teksAsli.filter(e => KEY.includes(e)).length > 0) {
+        if (theTextArr.filter(e => KEY.includes(e)).length > 0) {
             let tandaBaca              = [],
                 jumlahEnkripsi         = Math.ceil(specialGet.password().length === 0 ? 1 : specialGet.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
-            teksAsli.forEach((e, i) => {
+            theTextArr.forEach((e, i) => {
                 if (!KEY.includes(e)) {
                     tandaBaca.push([i, e]);
                 }
             });
-            teksAsli = teksAsli.filter(e => KEY.includes(e));
+            theTextArr = theTextArr.filter(e => KEY.includes(e));
 
             // 2.2 (1) : Jika enkripsi
             if (specialGet.statusEnkripsi()) {
                 let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+get.element('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
-                    teksAsli = teksAsli.map(e => specialGet.nilaiCermin(e)); // Pencerminan
+                    theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlahRefleksi--;
                 }
 
-                teksAsli = teksAsli.reverse(); // Pembalik
+                theTextArr = theTextArr.reverse(); // Pembalik
 
-                if (teksAsli.length > 1){
+                if (theTextArr.length > 1){
                     // Substitusi belakang-depan
-                    teksAsli = teksAsli.length === 1 ? teksAsli : teksAsli.slice(Math.ceil(teksAsli.length / 2)).concat( teksAsli.slice(0, Math.ceil(teksAsli.length / 2)) );
+                    theTextArr = theTextArr.length === 1 ? theTextArr : theTextArr.slice(Math.ceil(theTextArr.length / 2)).concat( theTextArr.slice(0, Math.ceil(theTextArr.length / 2)) );
 
-                    let batas_perulangan = teksAsli.length % 2 === 1 ? teksAsli.length - 1 : teksAsli.length,
+                    let batas_perulangan = theTextArr.length % 2 === 1 ? theTextArr.length - 1 : theTextArr.length,
                         temp;
                     for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                        temp          = teksAsli[i];
-                        teksAsli[i]   = teksAsli[i+1];
-                        teksAsli[i+1] = temp;
+                        temp          = theTextArr[i];
+                        theTextArr[i]   = theTextArr[i+1];
+                        theTextArr[i+1] = temp;
                     }
                 }
             }
@@ -80,7 +79,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             // 2.3 : Enkripsi - Dekripsi
             let hasil;
                 for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
-                    hasil = penggeseranVertikal(teksAsli, 0 + id_enkripsi); // hasil return : array[str, str, ....]
+                    hasil = penggeseranVertikal(theTextArr, 0 + id_enkripsi); // hasil return : array[str, str, ....]
                 }
 
             // 2.2 (2) : Jika dekripsi
@@ -125,7 +124,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             }
         }
         else {
-            return teksAsli.join('');
+            return theTextArr.join('');
         }
     },
 
