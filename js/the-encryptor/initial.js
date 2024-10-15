@@ -1,3 +1,3 @@
-const ZZTE = (theText) => {
-    return zztEncryptor(theText);
+const ZZTE = (theText, thePassword) => {
+    return zztEncryptor(theText, thePassword);
 };
