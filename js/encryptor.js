@@ -129,16 +129,15 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
 
     // Tahap 3 : Enkripsi-Dekripsi
-    penggeseranVertikal = (teks_arr, nomorUrutBlok) => {
+    penggeseranVertikal = (teks_arr, nomorUrutBlok, thePassword) => {
 
         // 3.1 : Deklarasi variabel sebelum proses enkripsi-dekripsi
         let arahGeser                = specialGet.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
-            password                 = specialGet.password(), // Mendapatkan password dari tempat input password
-            nilaiPassword            = specialGet.passwordValue(password), // Mendapatkan nilai Password [number, number]
-            nilaiKonkatenasiPassword = Math.ceil(get.stringConcatenateNumber(password, get.reverse(password)) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
-            nilaiPrimer              = password.length === 0 ? 19 : [...password].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
+            nilaiPassword            = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
+            nilaiKonkatenasiPassword = Math.ceil(get.stringConcatenateNumber(thePassword, get.reverse(thePassword)) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
+            nilaiPrimer              = thePassword.length === 0 ? 19 : [...thePassword].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
-            jumlahPenguncian         = Math.ceil(password.length < 1 ? 4 : password.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
+            jumlahPenguncian         = Math.ceil(thePassword.length < 1 ? 4 : thePassword.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
 
             angkaGeser               = [nomorUrutBlok + nilaiPassword[1] + nilaiKonkatenasiPassword + nilaiPrimer + teks_arr.length + 7, nomorUrutBlok + nilaiPassword[0] + nilaiSekunder - 10];
                 angkaGeser           = [Math.abs(Math.ceil(angkaGeser[0])), Math.abs(Math.ceil(angkaGeser[1]))]; // Membulatkan ke atas jika desimal dan menjadikannya bilangan cacah (bilangan bulat positif mulai dari 0)
