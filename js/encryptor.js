@@ -79,12 +79,12 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             // 2.3 : Enkripsi - Dekripsi
             let hasil;
                 for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
-                    hasil = penggeseranVertikal(theTextArr, 0 + id_enkripsi); // hasil return : array[str, str, ....]
+                    hasil = penggeseranVertikal(theTextArr, 1 + id_enkripsi, thePassword); // hasil return : array[str, str, ....]
                 }
 
             // 2.2 (2) : Jika dekripsi
             if (!specialGet.statusEnkripsi()) {
-                if (hasil.length > 1){
+                if (hasil.length > 1) {
                     let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
                         temp;
                     for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
