@@ -42,7 +42,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
         if (theTextArr.filter(e => KEY.includes(e)).length > 0) {
             let tandaBaca              = [],
-                jumlahEnkripsi         = Math.ceil(specialGet.password().length === 0 ? 1 : specialGet.password().length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
+                jumlahEnkripsi         = Math.ceil(thePassword.length === 0 ? 1 : thePassword.length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
             theTextArr.forEach((e, i) => {
@@ -54,7 +54,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
 
             // 2.2 (1) : Jika enkripsi
             if (specialGet.statusEnkripsi()) {
-                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+get.element('#tempatJenisCermin').value);
+                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
                     theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlahRefleksi--;
@@ -98,7 +98,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
                 }
                 hasil = hasil.reverse(); // Pembalik
 
-                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - specialGet.password().length) + (+get.element('#tempatJenisCermin').value);
+                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
                 while (jumlah_Refleksi > 0) {
                     hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
                     jumlah_Refleksi--;
