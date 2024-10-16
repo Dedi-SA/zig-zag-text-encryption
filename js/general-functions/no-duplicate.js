@@ -9,7 +9,7 @@ const noDuplicate = obj => {
             return [...temp].join('');
         }
         else {
-            console.log(invArg('noDuplicate()'));
+            invArg('noDuplicate()');
             return false;
         }
     }

@@ -1,5 +1,3 @@
-
-
 const geser = (karakter, arah, jumlahPenggeseran) => {
         jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
 
