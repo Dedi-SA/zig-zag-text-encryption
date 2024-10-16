@@ -19,7 +19,7 @@ const   startTheProcess = () => {
         })
 
         changeElements.forEach(theElement => {
-            theElement.addEventListener('change', startTheProcess)
+            theElement.addEventListener('change', startTheProcess);
         })
 
         dblClickElements.forEach(theElement => {
@@ -32,6 +32,6 @@ const   startTheProcess = () => {
         inputPasswordElements.forEach(theElement => {
             theElement.addEventListener('input', function() {
                 tempatPassword.value = [...specialGet.password()].filter(e => generalString.includes(e)).join('');
-                startTheProcess()
+                startTheProcess();
             })
         })
