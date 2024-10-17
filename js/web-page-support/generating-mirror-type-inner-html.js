@@ -1,6 +1,6 @@
 // By standard, mirror is limited to 26
 for (let i = 0; i < 26; i++) {
-    if (i >= mirrors.length) { // Stop if 'i' large of equal to mirrors.length
+    if (i >= mirrorBox.length) {
         break;
     }
 
