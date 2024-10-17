@@ -35,9 +35,9 @@ Here is the KEY if sorted :
 
     1. Mirrors is a nested array.
 
-    2. The maximum number of elements is 26, same as the alphabet, and it must not exceed that.
+    2. Each element in it is basically the KEY, but in a random order and must not be the same as the KEY.
 
-    3. Each element in it must be created according to the same rules as the KEY, but in a random order.
+    3. The maximum number of elements is 26, same as the alphabet, and it must not exceed that.
 
     4. None of these elements should exactly match the sequence of characters in the KEY being used.
 
