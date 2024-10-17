@@ -5,7 +5,7 @@ It is portable and can be used in other projects.
 
 ## Contents List
 1. [key.js](#keyjs)
-2. [mirrors.js](#mirrorsjs)
+2. [mirrorBox.js](#mirrorBoxjs)
 
 
 ## key.js
@@ -31,7 +31,7 @@ Here is the KEY if sorted :
 
 
 
-## mirrors.js
+## mirrorBox.js
 
     1. Mirrors is a nested array.
 
