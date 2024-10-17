@@ -1,6 +1,6 @@
 const specialGet = {
             cermin: () => { // return : Array
-                return mirrors[+tempatJenisCermin.value]; // Jenis cermin yang akan dipakai
+                return mirrorBox[+tempatJenisCermin.value]; // Jenis cermin yang akan dipakai
             },
             nilaiCermin: str => {
                 if (is.str(str) && str.length === 1) {
