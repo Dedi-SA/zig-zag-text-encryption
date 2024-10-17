@@ -1,4 +1,4 @@
-    const mirrors = [
+    const mirrorBox = [
         [...'w&{a0~<h3r#U;P8=-Do^eH1M@Am/QO_9xtjLF.C7?]X\'qIc+2f%v}k:Y`>bVp J*RN)zn!"ZBuE|4[Ws(TKy$G6i,dSlg5'], // [0]  A
         [...'>Qk[Go"1#<y5)A3Lf?mv$TJX aN-zt}8O=%4~RhD/^|YM!nHUr*,cB7u2j\'gl&_qVbx`9]CW:iK;{sFPSI+w@6eZ0.(pEd'], // [1]  B
         [...'Jt{Ph5,Sy(p#DUoLzcY72~F\'NwQ?]AHk<3bEre@_;x"n%6Tu)R1M=. K9^fW!Bq:j}$Xd-[lI0g8&vZs`OG4/mi*>CaV|+'], // [2]  C
@@ -31,12 +31,12 @@
     
 
         /*
-            To Check is variable 'mirrors' is valid or not
+            To Check is variable 'mirrorBox' is valid or not
             
-            If there found invalid element, 'mirrors' will be considered invalid,
+            If there found invalid element, 'mirrorBox' will be considered invalid,
             and the function will return : [false, [index number of the invalid]]
 
-            If there is no invalid element found, 'mirrors' will be considered valid,
+            If there is no invalid element found, 'mirrorBox' will be considered valid,
             and the function will return : [true, []]
         */
 
