@@ -42,7 +42,15 @@ const specialGet = {
                     password = [...password];
                     let sliceValue = Math.ceil(password.length / 2);
 
-                    return [password.slice(sliceValue).map(e => get.id(e, KEY)).reduce((a,b) => a+b,0), password.slice(0, sliceValue).map(e => get.id(e, KEY)).reduce((a,b) => a+b,0)];
+                    return [
+                        password.slice(sliceValue)
+                        .map(e => get.id(e, KEY))
+                        .reduce((a,b) => a+b,0),
+                        
+                        password.slice(0, sliceValue)
+                        .map(e => get.id(e, KEY))
+                        .reduce((a,b) => a+b,0)
+                    ];
                 }
             },
             restOfChars: teksPertama => {
