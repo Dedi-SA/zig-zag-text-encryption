@@ -40,13 +40,13 @@
             and the function will return : [true, []]
         */
 
-    const   isValidMirrors = theMirror => {
-                if (Array.isArray(theMirror) && theMirror.length > 0) {
+    const   isValidMirrorBox = theMirrorBox => {
+                if (Array.isArray(theMirrorBox) && theMirrorBox.length > 0) {
 
                     let status = [true, []];
 
-                    for(let i = 0; i < theMirror.length; i++) {
-                        if (isValidKey(theMirror[i]) === false) {
+                    for(let i = 0; i < theMirrorBox.length; i++) {
+                        if (isValidKey(theMirrorBox[i]) === false) {
                             status[0] = false;
                             status[1].push(i);
                         }
