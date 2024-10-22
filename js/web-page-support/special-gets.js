@@ -52,13 +52,5 @@ const specialGet = {
                         .reduce((a,b) => a+b,0)
                     ];
                 }
-            },
-            restOfChars: teksPertama => {
-                if (is.str(teksPertama) && teksPertama.length === 1 && KEY.includes(teksPertama)) {
-                    return [...KEY.slice(get.id(teksPertama, KEY)), ...KEY.slice(0, get.id(teksPertama, KEY))];
-                }
-                else {
-                    invArg('specialGet.restOfChars()');
-                }
             }
         };
