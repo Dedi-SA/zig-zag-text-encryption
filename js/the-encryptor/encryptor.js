@@ -25,7 +25,7 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
     },
     
     // Tahap 2 : Pencerminan, Pembalik
-    mulaiEnkripsiDekripsi = (theTextArr, thePassword, status) => {
+    mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
         
         // Max : 10
         let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1);
@@ -93,7 +93,7 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
         return hasil.join('');
     },
 
-    // Tahap 3 : Enkripsi-Dekripsi
+    // Tahap 3 : Enkripsi - Dekripsi
     penggeseranVertikal = (theTextArr, thePassword, status, sessions) => {
         
         let rotatorNumbers = getRotatorNumbers(theTextArr, thePassword, sessions); // return : [number, number]
@@ -123,7 +123,7 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
             sessions--;
         }
 
-        // 3.3 : Hasil akhir
+        // 3.3 : The Result
         return theTextArr;
     };
 
