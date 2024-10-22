@@ -6,12 +6,10 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
         }
         else if (arah) {
             newID = (get.id(karakter, KEY) + jumlahPenggeseran) % KEY.length;
-            console.log('kanan');
             return KEY[newID];
         }
         else {
             newID = (get.id(karakter, KEY) - jumlahPenggeseran + KEY.length) % KEY.length;
-            console.log('kiri');
             return KEY[newID];
         }
     },
