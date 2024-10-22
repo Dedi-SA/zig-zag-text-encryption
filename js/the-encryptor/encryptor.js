@@ -12,12 +12,23 @@ const rotate = (theChar, direction, rotationCount) => {
             newID = (get.id(theChar, KEY) - rotationCount + KEY.length) % KEY.length;
             return KEY[newID];
         }
+    };
+
+const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
+        const randomNumber_1 = Math.abs(theTextArr.length - thePassword.length) + 1,
+              randomNumber_2 = Math.ceil((thePassword.length + numberOfEncryptions) / 4) + theTextArr.length;
+
+        return [
+            randomNumber_1 > 10000 ? randomNumber_1 - Math.ceil(randomNumber_1 / 3) + 1 : randomNumber_1,
+            randomNumber_2 > 10000 ? randomNumber_2 - Math.floor(randomNumber_2 / 4) + 1 : randomNumber_2
+        ];
     },
     
     // Tahap 2 : Pencerminan, Pembalik
     mulaiEnkripsiDekripsi = (theTextArr, thePassword, status) => {
         
-        let numberOfEncryptions = Math.ceil(thePassword.length === 0 ? 1 : thePassword.length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
+        // Max : 10
+        let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1);
 
         // 2.2 (1) : Jika enkripsi
         if (status) {
@@ -49,8 +60,9 @@ const rotate = (theChar, direction, rotationCount) => {
         
         // 2.3 : Enkripsi - Dekripsi
         let hasil;
-            for (let id_enkripsi = 0; id_enkripsi < numberOfEncryptions; id_enkripsi++) {
-                hasil = penggeseranVertikal(theTextArr, thePassword, status, 1 + id_enkripsi); // return [str, str, ....]
+            while(numberOfEncryptions > 0) {
+                hasil = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
+                numberOfEncryptions--;
             }
 
         // 2.2 (2) : Jika dekripsi
@@ -82,48 +94,37 @@ const rotate = (theChar, direction, rotationCount) => {
     },
 
     // Tahap 3 : Enkripsi-Dekripsi
-    penggeseranVertikal = (teks_arr, thePassword, status, nomorUrutBlok) => {
-
-        // 3.1 : Randomizer
-        let twinNumber               = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
-            concatenateNumber        = get.stringConcatenateNumber(thePassword + get.reverse(thePassword)), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
-            nilaiPrimer              = thePassword.length === 0 ? 19 : [...thePassword].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
-            nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
-            jumlahPenguncian         = Math.ceil(thePassword.length < 1 ? 4 : thePassword.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
-
-            angkaGeser               = [nomorUrutBlok + twinNumber[1] + concatenateNumber + nilaiPrimer + teks_arr.length + 7, nomorUrutBlok + twinNumber[0] + nilaiSekunder - 10];
-                angkaGeser           = [Math.abs(Math.ceil(angkaGeser[0])), Math.abs(Math.ceil(angkaGeser[1]))]; // Membulatkan ke atas jika desimal dan menjadikannya bilangan cacah (bilangan bulat positif mulai dari 0)
-
+    penggeseranVertikal = (theTextArr, thePassword, status, sessions) => {
+        
+        let rotatorNumbers = getRotatorNumbers(theTextArr, thePassword, sessions); // return : [number, number]
+        
         // 3.2 : Enkripsi - Dekripsi
-        while (jumlahPenguncian > 0) {
-            for(let i = 0; i < teks_arr.length; i++) {
-
-                // Pengecekan : Jika nilai di dalam array angkaGeser melebihi jumlah tertentu, maka nilainya akan dikurangi
-                angkaGeser  = [angkaGeser[0] > 1000 ? Math.ceil((angkaGeser[0] / 45) * 63) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
-
+        while (sessions > 0) {
+            for(let i = 0; i < theTextArr.length; i++) {
+                
                 // Rotating each string character
-                teks_arr[i] = rotate(teks_arr[i], status, angkaGeser[0]);
+                theTextArr[i] = rotate(theTextArr[i], status, rotatorNumbers[0]);
 
                 // Zig-Zag Rule: Switching from true (rightward) to false (leftward) and the other way around
                 status      = !status;
 
-                angkaGese   = [angkaGeser[1], angkaGeser[0] + angkaGeser[1]];
+                rotatorNumbers   = [rotatorNumbers[1], rotatorNumbers[0] + rotatorNumbers[1]];
                 /*
                     Each string will be rotated based on a Fibonacci-like sequence
-                    The starting numbers (angkaGeser[0] and angkaGeser[1]) is a random positive number
+                    The starting numbers (rotatorNumbers[0] and rotatorNumbers[1]) is a random positive number
                     
                     Example :
-                        angkaGeser[0] = 5
-                        angkaGeser[1] = 2
+                        rotatorNumbers[0] = 5
+                        rotatorNumbers[1] = 2
 
                         Then then the order will be : 5, 2, 7, 9, 16, 25, ...
                 */
             }
-            jumlahPenguncian--;
+            sessions--;
         }
 
         // 3.3 : Hasil akhir
-        return teks_arr;
+        return theTextArr;
     };
 
 // Tanggal selesai versi pertama : Rabu, 22 September 2021 09.53
