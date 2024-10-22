@@ -21,7 +21,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
         if (theTextArr.filter(e => KEY.includes(e)).length > 0) {
             let tandaBaca              = [],
-                jumlahEnkripsi         = Math.ceil(thePassword.length === 0 ? 1 : thePassword.length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
+                numberOfEncryptions    = Math.ceil(thePassword.length === 0 ? 1 : thePassword.length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
             // 2.1 : Pendataan tanda baca
             theTextArr.forEach((e, i) => {
@@ -57,8 +57,8 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             
             // 2.3 : Enkripsi - Dekripsi
             let hasil;
-                for (let id_enkripsi = 0; id_enkripsi < jumlahEnkripsi; id_enkripsi++) {
-                    hasil = penggeseranVertikal(theTextArr, 1 + id_enkripsi, thePassword); // hasil return : array[str, str, ....]
+                for (let id_enkripsi = 0; id_enkripsi < numberOfEncryptions; id_enkripsi++) {
+                    hasil = penggeseranVertikal(theTextArr, 1 + id_enkripsi, thePassword); // return [str, str, ....]
                 }
 
             // 2.2 (2) : Jika dekripsi
@@ -131,13 +131,23 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
                 // Pengecekan : Jika nilai di dalam array angkaGeser melebihi jumlah tertentu, maka nilainya akan dikurangi
                 angkaGeser            = [angkaGeser[0] > 1000 ? Math.ceil((angkaGeser[0] / 45) * 63) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
 
-                // Proses penggeseran
+                // Rotating each string character
                 teks_arr[i] = geser(teks_arr[i], arahGeser, angkaGeser[0]);
 
-                // Konfigurasi pasca penggeseran
-                arahGeser             = !arahGeser; // Pembalik arah geser (Penentu proses zig-zag)
-                angkaGeser            = [angkaGeser[1], angkaGeser[0] + angkaGeser[1] + 7]; // angkaGeser[0] digunakan untuk menentukan jumlah penggeseran yang akan dilakukan oleh Fungsi geser()
-                                                                                            // Pola yang digunakan adalah pola pada Deret Fibonacci (TIDAK harus dimulai dari 1,1)
+                // Zig-Zag Rule: Switching from true (rightward) to false (leftward) and the other way around
+                arahGeser             = !arahGeser;
+
+                angkaGeser            = [angkaGeser[1], angkaGeser[0] + angkaGeser[1]];
+                /*
+                    Each string will be rotated based on a Fibonacci-like sequence
+                    The starting numbers (angkaGeser[0] and angkaGeser[1]) is a random positive number
+                    
+                    Example :
+                        angkaGeser[0] = 5
+                        angkaGeser[1] = 2
+
+                        Then then the order will be : 5, 2, 7, 9, 16, 25, ...
+                */
             }
             jumlahPenguncian--;
         }
