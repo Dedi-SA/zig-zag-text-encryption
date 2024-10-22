@@ -1,5 +1,5 @@
 // Step 1 : Filtering
-const ZZTE = (theText, thePassword) => {
+const ZZTE = (theText, thePassword, status) => {
     if (!is.str(theText)) {
         invArg('ZZTE()');
         console.log('The input must be string');
@@ -14,7 +14,7 @@ const ZZTE = (theText, thePassword) => {
                 console.log('The password must be string');
             }
             else {
-                return mulaiEnkripsiDekripsi([...theText], thePassword);
+                return mulaiEnkripsiDekripsi([...theText], thePassword, status);
             }
         }
     }
