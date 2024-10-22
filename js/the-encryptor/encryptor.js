@@ -1,4 +1,4 @@
-const geser = (karakter, arah, jumlahPenggeseran) => {
+const rotate = (karakter, arah, jumlahPenggeseran) => {
         jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
 
         if (jumlahPenggeseran === 0) {
@@ -131,7 +131,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
                 angkaGeser  = [angkaGeser[0] > 1000 ? Math.ceil((angkaGeser[0] / 45) * 63) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
 
                 // Rotating each string character
-                teks_arr[i] = geser(teks_arr[i], status, angkaGeser[0]);
+                teks_arr[i] = rotate(teks_arr[i], status, angkaGeser[0]);
 
                 // Zig-Zag Rule: Switching from true (rightward) to false (leftward) and the other way around
                 status      = !status;
