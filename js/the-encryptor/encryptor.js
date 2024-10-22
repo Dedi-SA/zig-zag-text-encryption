@@ -14,102 +14,75 @@ const rotate = (theChar, direction, rotationCount) => {
         }
     },
     
-    // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
+    // Tahap 2 : Pencerminan, Pembalik
     mulaiEnkripsiDekripsi = (theTextArr, thePassword, status) => {
+        
+        let numberOfEncryptions = Math.ceil(thePassword.length === 0 ? 1 : thePassword.length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
 
-        // Hanya string yang terdapat pada variabel KEY yang akan diroses
-        // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
-        if (theTextArr.filter(e => KEY.includes(e)).length > 0) {
-            let tandaBaca              = [],
-                numberOfEncryptions    = Math.ceil(thePassword.length === 0 ? 1 : thePassword.length) / 2 + 2; // Maks:10 (Jumlah tindakan enkripsi-dekripsi)
+        // 2.2 (1) : Jika enkripsi
+        if (status) {
 
-            // 2.1 : Pendataan tanda baca
-            theTextArr.forEach((e, i) => {
-                if (!KEY.includes(e)) {
-                    tandaBaca.push([i, e]);
+            let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
+            
+            while (jumlahRefleksi > 0) {
+                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
+                jumlahRefleksi--;
+            }
+
+            theTextArr = theTextArr.reverse(); // Pembalik
+
+            if (theTextArr.length > 1){
+
+                // Substitusi belakang-depan
+                theTextArr = theTextArr.length === 1 ? theTextArr : theTextArr.slice(Math.ceil(theTextArr.length / 2)).concat( theTextArr.slice(0, Math.ceil(theTextArr.length / 2)) );
+
+                let batas_perulangan = theTextArr.length % 2 === 1 ? theTextArr.length - 1 : theTextArr.length,
+                    temp;
+
+                for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
+                    temp            = theTextArr[i];
+                    theTextArr[i]   = theTextArr[i+1];
+                    theTextArr[i+1] = temp;
                 }
-            });
-            theTextArr = theTextArr.filter(e => KEY.includes(e));
+            }
+        }
+        
+        // 2.3 : Enkripsi - Dekripsi
+        let hasil;
+            for (let id_enkripsi = 0; id_enkripsi < numberOfEncryptions; id_enkripsi++) {
+                hasil = penggeseranVertikal(theTextArr, thePassword, status, 1 + id_enkripsi); // return [str, str, ....]
+            }
 
-            // 2.2 (1) : Jika enkripsi
-            if (status) {
-                let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
-                while (jumlahRefleksi > 0) {
-                    theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
-                    jumlahRefleksi--;
-                }
+        // 2.2 (2) : Jika dekripsi
+        if (!status) {
 
-                theTextArr = theTextArr.reverse(); // Pembalik
-
-                if (theTextArr.length > 1){
-                    // Substitusi belakang-depan
-                    theTextArr = theTextArr.length === 1 ? theTextArr : theTextArr.slice(Math.ceil(theTextArr.length / 2)).concat( theTextArr.slice(0, Math.ceil(theTextArr.length / 2)) );
-
-                    let batas_perulangan = theTextArr.length % 2 === 1 ? theTextArr.length - 1 : theTextArr.length,
-                        temp;
-                    for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                        temp            = theTextArr[i];
-                        theTextArr[i]   = theTextArr[i+1];
-                        theTextArr[i+1] = temp;
-                    }
-                }
+            let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
+                temp;
+                
+            for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
+                temp          = hasil[i];
+                hasil[i]   = hasil[i+1];
+                hasil[i+1] = temp;
             }
             
-            // 2.3 : Enkripsi - Dekripsi
-            let hasil;
-                for (let id_enkripsi = 0; id_enkripsi < numberOfEncryptions; id_enkripsi++) {
-                    hasil = penggeseranVertikal(theTextArr, 1 + id_enkripsi, thePassword, status); // return [str, str, ....]
-                }
+            // Substitusi depan-belakang
+            hasil = hasil.length === 1 ? hasil : hasil.slice(Math.floor(hasil.length / 2)).concat( hasil.slice(0, Math.floor(hasil.length / 2)) );
 
-            // 2.2 (2) : Jika dekripsi
-            if (!status) {
+            hasil = hasil.reverse(); // Pembalik
 
-                let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
-                    temp;
-                    
-                for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                    temp          = hasil[i];
-                    hasil[i]   = hasil[i+1];
-                    hasil[i+1] = temp;
-                }
-                
-                // Substitusi depan-belakang
-                hasil = hasil.length === 1 ? hasil : hasil.slice(Math.floor(hasil.length / 2)).concat( hasil.slice(0, Math.floor(hasil.length / 2)) );
-
-                hasil = hasil.reverse(); // Pembalik
-
-                let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
-                while (jumlah_Refleksi > 0) {
-                    hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
-                    jumlah_Refleksi--;
-                }
-
+            let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
+            while (jumlah_Refleksi > 0) {
+                hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
+                jumlah_Refleksi--;
             }
 
-            // 2.4 : Mengembalikan tanda baca
-            if (tandaBaca.length === 0) {
-                return hasil.join('');
-            }
-            else {
-                tandaBaca.forEach(e => {
-                    if (e[0] === 0)
-                        hasil = [e[1], ...hasil];
-                    else if (e[0] === hasil.length)
-                        hasil = [...hasil, e[1]];
-                    else {
-                        hasil = [...hasil.slice(0, e[0]), e[1], ...hasil.slice(e[0])];
-                    }
-                })
-                return hasil.join('');
-            }
         }
-        else {
-            return theTextArr.join('');
-        }
+
+        return hasil.join('');
     },
 
     // Tahap 3 : Enkripsi-Dekripsi
-    penggeseranVertikal = (teks_arr, nomorUrutBlok, thePassword, status) => {
+    penggeseranVertikal = (teks_arr, thePassword, status, nomorUrutBlok) => {
 
         // 3.1 : Randomizer
         let twinNumber               = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
@@ -120,8 +93,6 @@ const rotate = (theChar, direction, rotationCount) => {
 
             angkaGeser               = [nomorUrutBlok + twinNumber[1] + concatenateNumber + nilaiPrimer + teks_arr.length + 7, nomorUrutBlok + twinNumber[0] + nilaiSekunder - 10];
                 angkaGeser           = [Math.abs(Math.ceil(angkaGeser[0])), Math.abs(Math.ceil(angkaGeser[1]))]; // Membulatkan ke atas jika desimal dan menjadikannya bilangan cacah (bilangan bulat positif mulai dari 0)
-
-        
 
         // 3.2 : Enkripsi - Dekripsi
         while (jumlahPenguncian > 0) {
