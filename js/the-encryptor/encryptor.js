@@ -32,12 +32,10 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
 
         // 2.2 (1) : Jika enkripsi
         if (status) {
-
-            let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
             
-            while (jumlahRefleksi > 0) {
+            while (numberOfReflections > 0) {
                 theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
-                jumlahRefleksi--;
+                numberOfReflections--;
             }
 
             theTextArr = theTextArr.reverse(); // Pembalik
@@ -82,10 +80,9 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
 
             hasil = hasil.reverse(); // Pembalik
 
-            let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
-            while (jumlah_Refleksi > 0) {
+            while (numberOfReflections > 0) {
                 hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
-                jumlah_Refleksi--;
+                numberOfReflections--;
             }
 
         }
