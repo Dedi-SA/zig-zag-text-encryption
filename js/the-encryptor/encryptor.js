@@ -4,32 +4,15 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
         if (jumlahPenggeseran === 0) {
             return karakter;
         }
-        else {
-            let arr = specialGet.restOfChars(karakter); // Karakter yang didapat dari parameter menjadi patokan awal untuk mendapatkan karakter selanjutnya
-
-            return ( arah ? arr[arr.length - jumlahPenggeseran] : arr[jumlahPenggeseran] );
-        }
-    },
-
-    // Tahap 1 : Memulai proses enkripsi jika tempat input > 0 DAN cermin yang digunakan adalah valid
-    zztEncryptor = (theText, thePassword) => {
-        if (typeof theText === 'string') {
-            if (theText.length > 0) {
-                if (typeof thePassword === 'string') {
-                    return mulaiEnkripsiDekripsi([...theText], thePassword);
-                }
-                else {
-                    invArg('zztEncryptor()');
-                    console.log('The password must be string');
-                }
-            }
-            else {
-                return theText;
-            }
+        else if (arah) {
+            newID = (get.id(karakter, KEY) + jumlahPenggeseran) % KEY.length;
+            console.log('kanan');
+            return KEY[newID];
         }
         else {
-            invArg('zztEncryptor()');
-            console.log('The input must be string');
+            newID = (get.id(karakter, KEY) - jumlahPenggeseran + KEY.length) % KEY.length;
+            console.log('kiri');
+            return KEY[newID];
         }
     },
     
@@ -129,15 +112,16 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     // Tahap 3 : Enkripsi-Dekripsi
     penggeseranVertikal = (teks_arr, nomorUrutBlok, thePassword) => {
 
-        // 3.1 : Deklarasi variabel sebelum proses enkripsi-dekripsi
         let arahGeser                = specialGet.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
-            nilaiPassword            = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
-            nilaiKonkatenasiPassword = Math.ceil(get.stringConcatenateNumber(thePassword, get.reverse(thePassword)) / 14), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
+
+        // 3.1 : Randomizer
+            twinNumber               = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
+            concatenateNumber        = get.stringConcatenateNumber(thePassword + get.reverse(thePassword)), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
             nilaiPrimer              = thePassword.length === 0 ? 19 : [...thePassword].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
             jumlahPenguncian         = Math.ceil(thePassword.length < 1 ? 4 : thePassword.length / 3) + 4, // Jumlah penguncian yang akan dilakukan (penggeseran mulai awal sampai akhir dihitung sebagai 1 penguncian)
 
-            angkaGeser               = [nomorUrutBlok + nilaiPassword[1] + nilaiKonkatenasiPassword + nilaiPrimer + teks_arr.length + 7, nomorUrutBlok + nilaiPassword[0] + nilaiSekunder - 10];
+            angkaGeser               = [nomorUrutBlok + twinNumber[1] + concatenateNumber + nilaiPrimer + teks_arr.length + 7, nomorUrutBlok + twinNumber[0] + nilaiSekunder - 10];
                 angkaGeser           = [Math.abs(Math.ceil(angkaGeser[0])), Math.abs(Math.ceil(angkaGeser[1]))]; // Membulatkan ke atas jika desimal dan menjadikannya bilangan cacah (bilangan bulat positif mulai dari 0)
 
         
@@ -147,7 +131,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             for(let i = 0; i < teks_arr.length; i++) {
 
                 // Pengecekan : Jika nilai di dalam array angkaGeser melebihi jumlah tertentu, maka nilainya akan dikurangi
-                angkaGeser            = [angkaGeser[0] > 1000000000 ? Math.ceil((angkaGeser[0] / 729624102) * 100) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
+                angkaGeser            = [angkaGeser[0] > 1000 ? Math.ceil((angkaGeser[0] / 45) * 63) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
 
                 // Proses penggeseran
                 teks_arr[i] = geser(teks_arr[i], arahGeser, angkaGeser[0]);
