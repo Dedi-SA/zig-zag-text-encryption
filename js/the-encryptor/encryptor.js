@@ -48,7 +48,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
                     let batas_perulangan = theTextArr.length % 2 === 1 ? theTextArr.length - 1 : theTextArr.length,
                         temp;
                     for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                        temp          = theTextArr[i];
+                        temp            = theTextArr[i];
                         theTextArr[i]   = theTextArr[i+1];
                         theTextArr[i+1] = temp;
                     }
@@ -63,18 +63,19 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
 
             // 2.2 (2) : Jika dekripsi
             if (!specialGet.statusEnkripsi()) {
-                if (hasil.length > 1) {
-                    let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
-                        temp;
-                    for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                        temp          = hasil[i];
-                        hasil[i]   = hasil[i+1];
-                        hasil[i+1] = temp;
-                    }
+
+                let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
+                    temp;
                     
-                    // Substitusi depan-belakang
-                    hasil = hasil.length === 1 ? hasil : hasil.slice(Math.floor(hasil.length / 2)).concat( hasil.slice(0, Math.floor(hasil.length / 2)) );
+                for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
+                    temp          = hasil[i];
+                    hasil[i]   = hasil[i+1];
+                    hasil[i+1] = temp;
                 }
+                
+                // Substitusi depan-belakang
+                hasil = hasil.length === 1 ? hasil : hasil.slice(Math.floor(hasil.length / 2)).concat( hasil.slice(0, Math.floor(hasil.length / 2)) );
+
                 hasil = hasil.reverse(); // Pembalik
 
                 let jumlah_Refleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
