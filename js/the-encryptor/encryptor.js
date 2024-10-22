@@ -1,15 +1,15 @@
-const rotate = (karakter, arah, jumlahPenggeseran) => {
-        jumlahPenggeseran = jumlahPenggeseran >= KEY.length ? jumlahPenggeseran % KEY.length : jumlahPenggeseran;
+const rotate = (theChar, direction, rotationCount) => {
+        rotationCount = rotationCount >= KEY.length ? rotationCount % KEY.length : rotationCount;
 
-        if (jumlahPenggeseran === 0) {
-            return karakter;
+        if (rotationCount === 0) {
+            return theChar;
         }
-        else if (arah) {
-            newID = (get.id(karakter, KEY) + jumlahPenggeseran) % KEY.length;
+        else if (direction) {
+            newID = (get.id(theChar, KEY) + rotationCount) % KEY.length;
             return KEY[newID];
         }
         else {
-            newID = (get.id(karakter, KEY) - jumlahPenggeseran + KEY.length) % KEY.length;
+            newID = (get.id(theChar, KEY) - rotationCount + KEY.length) % KEY.length;
             return KEY[newID];
         }
     },
