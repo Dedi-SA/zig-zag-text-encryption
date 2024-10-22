@@ -15,7 +15,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
     
     // Tahap 2 : Pencerminan, Pembalik, Substitusi depan-belakang
-    mulaiEnkripsiDekripsi = (theTextArr, thePassword) => {
+    mulaiEnkripsiDekripsi = (theTextArr, thePassword, status) => {
 
         // Hanya string yang terdapat pada variabel KEY yang akan diroses
         // Selain itu akan disimpan sementara, kemudian diletakkan kembali sesuai urutannya pada hasil akhir
@@ -32,7 +32,7 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             theTextArr = theTextArr.filter(e => KEY.includes(e));
 
             // 2.2 (1) : Jika enkripsi
-            if (specialGet.statusEnkripsi()) {
+            if (status) {
                 let jumlahRefleksi = +tempatJumlahRefleksi.value + Math.abs(Math.floor((get.element('#tempatPassword').maxLength / 17) * 100) - thePassword.length) + (+get.element('#tempatJenisCermin').value);
                 while (jumlahRefleksi > 0) {
                     theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
@@ -58,11 +58,11 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             // 2.3 : Enkripsi - Dekripsi
             let hasil;
                 for (let id_enkripsi = 0; id_enkripsi < numberOfEncryptions; id_enkripsi++) {
-                    hasil = penggeseranVertikal(theTextArr, 1 + id_enkripsi, thePassword); // return [str, str, ....]
+                    hasil = penggeseranVertikal(theTextArr, 1 + id_enkripsi, thePassword, status); // return [str, str, ....]
                 }
 
             // 2.2 (2) : Jika dekripsi
-            if (!specialGet.statusEnkripsi()) {
+            if (!status) {
 
                 let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
                     temp;
@@ -109,12 +109,10 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
     },
 
     // Tahap 3 : Enkripsi-Dekripsi
-    penggeseranVertikal = (teks_arr, nomorUrutBlok, thePassword) => {
-
-        let arahGeser                = specialGet.statusEnkripsi(), // Mendapatkan arah geser : true (kanan) / false (kiri)
+    penggeseranVertikal = (teks_arr, nomorUrutBlok, thePassword, status) => {
 
         // 3.1 : Randomizer
-            twinNumber               = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
+        let twinNumber               = specialGet.passwordValue(thePassword), // Mendapatkan nilai Password [number, number]
             concatenateNumber        = get.stringConcatenateNumber(thePassword + get.reverse(thePassword)), // Tiap karakter pada password akan di-convert menjadi 2 digit angka sesuai nomor urut pada
             nilaiPrimer              = thePassword.length === 0 ? 19 : [...thePassword].map(e => e.codePointAt(0)).reduce((a,b) => a+b, 0), // Nilai yang akan menempati slot pertama deret Fibonacci
             nilaiSekunder            = Math.ceil((nilaiPrimer + 3) / 2), // Nilai yang akan menempati slot ke-dua deret Fibonacci
@@ -130,15 +128,15 @@ const geser = (karakter, arah, jumlahPenggeseran) => {
             for(let i = 0; i < teks_arr.length; i++) {
 
                 // Pengecekan : Jika nilai di dalam array angkaGeser melebihi jumlah tertentu, maka nilainya akan dikurangi
-                angkaGeser            = [angkaGeser[0] > 1000 ? Math.ceil((angkaGeser[0] / 45) * 63) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
+                angkaGeser  = [angkaGeser[0] > 1000 ? Math.ceil((angkaGeser[0] / 45) * 63) : angkaGeser[0], angkaGeser[1] > 500000000 ? Math.ceil((angkaGeser[1] / 421092685) * 100) : angkaGeser[1]];
 
                 // Rotating each string character
-                teks_arr[i] = geser(teks_arr[i], arahGeser, angkaGeser[0]);
+                teks_arr[i] = geser(teks_arr[i], status, angkaGeser[0]);
 
                 // Zig-Zag Rule: Switching from true (rightward) to false (leftward) and the other way around
-                arahGeser             = !arahGeser;
+                status      = !status;
 
-                angkaGeser            = [angkaGeser[1], angkaGeser[0] + angkaGeser[1]];
+                angkaGese   = [angkaGeser[1], angkaGeser[0] + angkaGeser[1]];
                 /*
                     Each string will be rotated based on a Fibonacci-like sequence
                     The starting numbers (angkaGeser[0] and angkaGeser[1]) is a random positive number
