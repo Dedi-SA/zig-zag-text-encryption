@@ -2,7 +2,8 @@
 const   tempatStatusEnkripsi   = get.element('#tempatStatusEnkripsi'),
         tempatPassword         = get.element('#tempatPassword'),
         tempatInput            = get.element('#tempatInput'),
-        tempatOutput           = get.element('#tempatOutput');
+        tempatOutput           = get.element('#tempatOutput'),
+        jumlahRefleksi         = get.element('#tempatJumlahRefleksi').value;
 
 const   inputElements = document.querySelectorAll('.value-input'),
         changeElements = document.querySelectorAll('.value-change'),
@@ -10,7 +11,7 @@ const   inputElements = document.querySelectorAll('.value-input'),
         inputPasswordElements = document.querySelectorAll('.password-input');
         
 const   startTheProcess = () => {
-            tempatOutput.value = ZZTE(tempatInput.value, tempatPassword.value, tempatStatusEnkripsi.value === 'enkripsi');
+            tempatOutput.value = ZZTE(tempatInput.value, tempatPassword.value, tempatStatusEnkripsi.value === 'enkripsi', +jumlahRefleksi);
             resultSpaceWarning();
         };
 
