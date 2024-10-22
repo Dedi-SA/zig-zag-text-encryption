@@ -1,7 +1,7 @@
 // Step 1 : Filtering
 const ZZTE = (theText, thePassword) => {
     if (!is.str(theText)) {
-        invArg('zztEncryptor()');
+        invArg('ZZTE()');
         console.log('The input must be string');
     }
     else {
@@ -10,7 +10,7 @@ const ZZTE = (theText, thePassword) => {
         }
         else {
             if (typeof thePassword !== 'string') {
-                invArg('zztEncryptor()');
+                invArg('ZZTE()');
                 console.log('The password must be string');
             }
             else {
