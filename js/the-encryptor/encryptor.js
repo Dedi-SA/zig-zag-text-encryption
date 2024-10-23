@@ -28,8 +28,7 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
 const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
         
         let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1),
-            substitutionLimit   = theTextArr.length - (theTextArr.length % 2),
-            temp;
+            substitutionLimit   = theTextArr.length - (theTextArr.length % 2);
 
         // 2.2 (1) : Jika enkripsi
         if (status) {
