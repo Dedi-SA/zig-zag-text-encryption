@@ -22,36 +22,28 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
             randomNumber_1 > 10000 ? randomNumber_1 - Math.ceil(randomNumber_1 / 3) + 1 : randomNumber_1,
             randomNumber_2 > 10000 ? randomNumber_2 - Math.floor(randomNumber_2 / 4) + 1 : randomNumber_2
         ];
-    },
+    };
     
-    // Tahap 2 : Pencerminan, Pembalik
-    mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
+// Tahap 2 : Pencerminan, Pembalik
+const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
         
-        // Max : 10
-        let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1);
+        let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1),
+            substitutionLimit   = theTextArr.length - (theTextArr.length % 2),
+            temp;
 
         // 2.2 (1) : Jika enkripsi
         if (status) {
-            
             while (numberOfReflections > 0) {
-                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan
+                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan (mirroring)
                 numberOfReflections--;
             }
 
-            theTextArr = theTextArr.reverse(); // Pembalik
-
+            theTextArr = theTextArr.reverse(); // Pembalik (reverse)
+            
+            // Substitusi ganjil-genap (Odd-even swap)
             if (theTextArr.length > 1){
-
-                // Substitusi belakang-depan
-                theTextArr = theTextArr.length === 1 ? theTextArr : theTextArr.slice(Math.ceil(theTextArr.length / 2)).concat( theTextArr.slice(0, Math.ceil(theTextArr.length / 2)) );
-
-                let batas_perulangan = theTextArr.length % 2 === 1 ? theTextArr.length - 1 : theTextArr.length,
-                    temp;
-
-                for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                    temp            = theTextArr[i];
-                    theTextArr[i]   = theTextArr[i+1];
-                    theTextArr[i+1] = temp;
+                for(let i = 0; i < substitutionLimit; i+=2) {
+                    [theTextArr[i], theTextArr[i+1]] = [theTextArr[i+1], theTextArr[i]];
                 }
             }
         }
@@ -66,22 +58,17 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
         // 2.2 (2) : Jika dekripsi
         if (!status) {
 
-            let batas_perulangan = hasil.length % 2 === 1 ? hasil.length - 1 : hasil.length,
-                temp;
-                
-            for(let i = 0; i < batas_perulangan; i+=2) { // Substitusi ganjil-genap
-                temp          = hasil[i];
-                hasil[i]   = hasil[i+1];
-                hasil[i+1] = temp;
+            // Substitusi ganjil-genap (Odd-even swap)
+            if (hasil.length > 1) {
+                for(let i = 0; i < substitutionLimit; i+=2) {
+                    [theTextArr[i], theTextArr[i+1]] = [theTextArr[i+1], theTextArr[i]];
+                }
             }
             
-            // Substitusi depan-belakang
-            hasil = hasil.length === 1 ? hasil : hasil.slice(Math.floor(hasil.length / 2)).concat( hasil.slice(0, Math.floor(hasil.length / 2)) );
-
-            hasil = hasil.reverse(); // Pembalik
+            hasil = hasil.reverse(); // Pembalik (reverse)
 
             while (numberOfReflections > 0) {
-                hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan
+                hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan (mirroring)
                 numberOfReflections--;
             }
 
@@ -95,7 +82,6 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
         
         let rotatorNumbers = getRotatorNumbers(theTextArr, thePassword, sessions); // return : [number, number]
         
-        // 3.2 : Enkripsi - Dekripsi
         while (sessions > 0) {
             for(let i = 0; i < theTextArr.length; i++) {
                 
