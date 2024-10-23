@@ -49,9 +49,8 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
         }
         
         // 2.3 : Enkripsi - Dekripsi
-        let hasil;
             while(numberOfEncryptions > 0) {
-                hasil = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
+                theTextArr = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
                 numberOfEncryptions--;
             }
 
@@ -59,22 +58,21 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
         if (!status) {
 
             // Substitusi ganjil-genap (Odd-even swap)
-            if (hasil.length > 1) {
+            if (theTextArr.length > 1) {
                 for(let i = 0; i < substitutionLimit; i+=2) {
                     [theTextArr[i], theTextArr[i+1]] = [theTextArr[i+1], theTextArr[i]];
                 }
             }
             
-            hasil = hasil.reverse(); // Pembalik (reverse)
+            theTextArr = theTextArr.reverse(); // Pembalik (reverse)
 
             while (numberOfReflections > 0) {
-                hasil = hasil.map(e => specialGet.nilaiCermin(e)); // Pencerminan (mirroring)
+                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan (mirroring)
                 numberOfReflections--;
             }
-
         }
 
-        return hasil.join('');
+        return theTextArr.join('');
     },
 
     // Tahap 3 : Enkripsi - Dekripsi
