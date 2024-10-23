@@ -17,7 +17,7 @@ const ZZTE = (theText, thePassword, status, numberOfReflections) => {
         console.log('The password must be string.');
         return;
     }
-    else if (typeof numberOfReflections !== 'number') {
+    else if (!is.number(numberOfReflections)) {
         invArg('ZZTE()');
         console.log('Number of Reflections must be a number.');
         return;
