@@ -14,9 +14,9 @@ const rotate = (theChar, direction, rotationCount) => {
         }
     };
 
-const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
+const getRotatorNumbers = (theTextArr, thePassword, sessions) => {
         const randomNumber_1 = Math.abs(theTextArr.length - thePassword.length) + 1,
-              randomNumber_2 = Math.ceil((thePassword.length + numberOfEncryptions) / 4) + theTextArr.length;
+              randomNumber_2 = Math.ceil((thePassword.length + sessions) / 4) + theTextArr.length;
 
         return [
             randomNumber_1 > 10000 ? randomNumber_1 - Math.ceil(randomNumber_1 / 3) + 1 : randomNumber_1,
@@ -24,7 +24,7 @@ const getRotatorNumbers = (theTextArr, thePassword, numberOfEncryptions) => {
         ];
     };
     
-// Tahap 2 : Pencerminan, Pembalik
+// Tahap 2 : Pencerminan, Pembalik, Substitusi ganjil-genap (Mirroring, Reverse, Odd-Even Swap)
 const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
         
         let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1),
