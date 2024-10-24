@@ -33,7 +33,7 @@ Here is the KEY if sorted :
 
 ## mirrorBox.js
 
-    1. Mirrors is a nested array.
+    1. mirrorBox is a nested array.
 
     2. Each element in it is basically the KEY, but in a random order and must not be the same as the KEY.
 
@@ -43,4 +43,4 @@ Here is the KEY if sorted :
 
     5. There must be no twin elements in it.
 
-       If any are found, then the Mirrors will be declared invalid, and the program will not run.
+       If any are found, then the mirrorBox will be declared invalid, and the program will not run.
