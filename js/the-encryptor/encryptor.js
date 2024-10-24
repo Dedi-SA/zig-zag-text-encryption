@@ -24,22 +24,28 @@ const getRotatorNumbers = (theTextArr, thePassword, sessions) => {
         ];
     };
     
-// Tahap 2 : Pencerminan, Pembalik, Substitusi ganjil-genap (Mirroring, Reverse, Odd-Even Swap)
+// Step 2 : Pencerminan, Pembalik, Substitusi ganjil-genap (Mirroring, Reverse, Odd-Even Swap)
 const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
         
         let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1),
             substitutionLimit   = theTextArr.length - (theTextArr.length % 2);
 
-        // 2.2 (1) : Jika enkripsi
+        /*
+            If status === true  : step 2A => step 2B => step 2C => step 3  => End
+            If status === false : Step 3  => step 2C => step 2B => step 2A => End
+        */
+
         if (status) {
+            // Step 2A : Pencerminan (mirroring)
             while (numberOfReflections > 0) {
-                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan (mirroring)
+                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e));
                 numberOfReflections--;
             }
-
-            theTextArr = theTextArr.reverse(); // Pembalik (reverse)
             
-            // Substitusi ganjil-genap (Odd-even swap)
+            // Step 2B : Pembalik (reverse)
+            theTextArr = theTextArr.reverse();
+            
+            // Step 2C : Substitusi ganjil-genap (Odd-even swap)
             if (theTextArr.length > 1){
                 for(let i = 0; i < substitutionLimit; i+=2) {
                     [theTextArr[i], theTextArr[i+1]] = [theTextArr[i+1], theTextArr[i]];
@@ -47,30 +53,32 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
             }
         }
         
-        // 2.3 : Enkripsi - Dekripsi
+        // Step 3 : Enkripsi - Dekripsi
             while(numberOfEncryptions > 0) {
                 theTextArr = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
                 numberOfEncryptions--;
             }
 
-        // 2.2 (2) : Jika dekripsi
         if (!status) {
-
-            // Substitusi ganjil-genap (Odd-even swap)
+            
+            // Step 2C : Substitusi ganjil-genap (Odd-even swap)
             if (theTextArr.length > 1) {
                 for(let i = 0; i < substitutionLimit; i+=2) {
                     [theTextArr[i], theTextArr[i+1]] = [theTextArr[i+1], theTextArr[i]];
                 }
             }
-            
-            theTextArr = theTextArr.reverse(); // Pembalik (reverse)
 
+            // Step 2B : Pembalik (reverse)
+            theTextArr = theTextArr.reverse();
+
+            // Step 2A : Pencerminan (mirroring)
             while (numberOfReflections > 0) {
-                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)); // Pencerminan (mirroring)
+                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e));
                 numberOfReflections--;
             }
         }
 
+        // End
         return theTextArr.join('');
     },
 
