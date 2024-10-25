@@ -32,30 +32,24 @@ const get = {
             }
         },
         
-        stringConcatenateNumber: theString => {
-            /*
-                String will be convert to its index number according to the references provided by function caller.
-                Then those number converted into string, then merged, then converted again to number
-
-                Contoh : ~ theString 'bca'
-                         ~ huruf 'b' diganti menjadi 8, karena di dalam variabel KEY, huruf 'b' berada dalam indeks ke 8
-                         ~ karena harus 2 digit angka, maka angka 8 ditambahkan 0 di depannya menjadi 08
-                         ~ huruf 'c' menjadi 28
-                         ~ huruf 'a' menjadi 39
-                         ~ saat masih dalam bentuk string, angka-angka tersebut digabung dan menghasilkan nilai 082839 (string)
-                         ~ string tersebut kemudian di-'convert' menjadi integer sehingga menghasilkan nilai 82839 (integer)
-                         ~ kemudian nilai integer akan di-'return'
-                         ~ jika string kosong, maka fungsi akan me-return 9
-
-                         Catatan : Dengan beberapa improvisasi dan modifikasi kode
-            */
-            if (theString.length < 1) {
-                return 9;
+        randomNumberByString: (theString, theReference) => {
+            if (theString.length === 0) {
+                return 0;
             }
             else {
-                let convertStringToNumber = [...theString].map(e => get.id(e, generalString));
-                let mergeTheNumberIntoString = convertStringToNumber.map(e => e.toString()).join('');
-                return +mergeTheNumberIntoString;
+                theString = [...theString].map(e => get.id(e, theReference)) // get.id() for each element
+                                .map(e => e.toString()) // Change number into string
+                                .join(''); // Join it all to get full number
+
+                theString = Number(theString);
+
+                // Limited to three digits for performance reasons
+                while (theString >= 1000) {
+                    theString = Math.ceil(theString / 3);
+                }
+
+                // This variable is number already
+                return theString;
             }
         },
         element: namaElemen => {
