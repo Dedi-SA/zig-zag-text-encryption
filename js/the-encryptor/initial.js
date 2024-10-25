@@ -7,20 +7,20 @@ const ZZTE = (theText, thePassword, status, numberOfReflections) => {
     if (!is.str(theText)) {
         invArg('ZZTE()');
         console.log('The input must be string.');
-        return;
+        return '';
     }
     else if(theText.length === 0) {
         return theText;
     }
-    else if (is.str(thePassword)) {
+    else if (!is.str(thePassword)) {
         invArg('ZZTE()');
         console.log('The password must be string.');
-        return;
+        return '';
     }
     else if (!is.number(numberOfReflections)) {
         invArg('ZZTE()');
         console.log('Number of Reflections must be a number.');
-        return;
+        return '';
     }
     else {
         // Jika maxNumberOfReflection melebihi batas, maka yang akan digunakan adalah sisa hasil bagi dari nilaiMax
