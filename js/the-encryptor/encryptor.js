@@ -29,9 +29,9 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
             the rotor number in the following steps
         */
         if (thePassword.length === 0) {
-            thePassword = getStringFromMirror();
+            thePassword = getStringFromMirror(mirrorId);
         }
-        
+        console.log(thePassword)
         // Step 3 : Enkripsi - Dekripsi
         while(numberOfEncryptions > 0) {
             theTextArr = penggeseranVertikal(theTextArr, thePassword, status, thePassword.length - 1); // return [str, str, ....]
