@@ -11,7 +11,7 @@ const   inputElements = document.querySelectorAll('.value-input'),
         inputPasswordElements = document.querySelectorAll('.password-input');
         
 const   startTheProcess = () => {
-            tempatOutput.value = ZZTE(tempatInput.value, tempatPassword.value, tempatStatusEnkripsi.value === 'enkripsi', +jumlahRefleksi.value);
+            tempatOutput.value = ZZTE(tempatInput.value, tempatPassword.value, tempatStatusEnkripsi.value === 'enkripsi', +jumlahRefleksi.value, +get.element('#tempatJenisCermin').value);
             resultSpaceWarning();
         };
 
@@ -32,7 +32,7 @@ const   startTheProcess = () => {
 
         inputPasswordElements.forEach(theElement => {
             theElement.addEventListener('input', function() {
-                tempatPassword.value = [...specialGet.password()].filter(e => generalString.includes(e)).join('');
+                tempatPassword.value = [...tempatPassword.value].filter(e => generalString.includes(e)).join('');
                 startTheProcess();
             })
         })
