@@ -28,3 +28,12 @@ const getStringFromMirror = () => {
         return mirrorBox[+get.element('#tempatJenisCermin').value]
                .slice(7, 3);
 };
+
+const doMirroring = (theString, mirrorId, status) => {
+    if (status) {
+        return mirrorBox[mirrorId][KEY.indexOf(theString)];
+    }
+    else {
+        return KEY[mirrorBox[mirrorId].indexOf(theString)];
+    }
+};
