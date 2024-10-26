@@ -4,6 +4,8 @@ const get = {
                 return theReference.indexOf(theString, 0);
             else {
                 invArg('get.id()');
+                console.log(`theString : ${theString} (${typeof theString})`)
+                console.log(`theReference : ${theReference} (${typeof theReference})`);
             }
         },
 
@@ -29,27 +31,6 @@ const get = {
             }
             else {
                 invArg('get.reverse()');
-            }
-        },
-        
-        randomNumberByString: (theString, theReference) => {
-            if (theString.length === 0) {
-                return 0;
-            }
-            else {
-                theString = [...theString].map(e => get.id(e, theReference)) // get.id() for each element
-                                .map(e => e.toString()) // Change number into string
-                                .join(''); // Join it all to get full number
-
-                theString = Number(theString);
-
-                // Limited to three digits for performance reasons
-                while (theString >= 1000) {
-                    theString = Math.ceil(theString / 3);
-                }
-
-                // This variable is number already
-                return theString;
             }
         },
         element: namaElemen => {
