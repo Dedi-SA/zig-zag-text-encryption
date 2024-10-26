@@ -28,8 +28,8 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
             If the password is empty, the string will be taken from the chosen mirror to then optimize
             the rotor number in the following steps
         */
-        if (thePassword.length === 0) {
-            thePassword = getStringFromMirror(mirrorId);
+        if (thePassword.length < 3) {
+            thePassword = getStringFromMirror(mirrorId) + thePassword;
         }
         
         // Step 3 : Enkripsi - Dekripsi
