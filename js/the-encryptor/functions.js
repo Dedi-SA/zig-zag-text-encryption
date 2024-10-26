@@ -24,9 +24,8 @@ const getRotatorNumbers = (theTextArr, str, sessions) => {
     ];
 };
 
-const getStringFromMirror = () => {
-        return mirrorBox[+get.element('#tempatJenisCermin').value]
-               .slice(7, 3);
+const getStringFromMirror = mirrorId => {
+    return mirrorBox[mirrorId].slice(7, 7+3);
 };
 
 const doMirroring = (theString, mirrorId, status) => {
