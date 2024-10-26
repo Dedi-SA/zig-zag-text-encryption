@@ -34,7 +34,7 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
         
         // Step 3 : Enkripsi - Dekripsi
         while(numberOfEncryptions > 0) {
-            theTextArr = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
+            theTextArr = penggeseranVertikal(theTextArr, thePassword, status, thePassword.length - 1); // return [str, str, ....]
             numberOfEncryptions--;
         }
 
@@ -59,7 +59,6 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
 
     // Tahap 3 : Enkripsi - Dekripsi
     penggeseranVertikal = (theTextArr, thePassword, status, sessions) => {
-
         let rotatorNumbers = getRotatorNumbers(theTextArr, thePassword, sessions); // return : [number, number]
         
         while (sessions > 0) {
@@ -67,23 +66,28 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
                 
                 // Rotating each string character
                 theTextArr[i] = rotate(theTextArr[i], status, rotatorNumbers[0]);
+                theTextArr[i] = rotate(theTextArr[i], status, get.id(thePassword[sessions], KEY));
 
                 // Zig-Zag Rule: Switching from true (rightward) to false (leftward) and the other way around
                 status      = !status;
 
-                rotatorNumbers   = [rotatorNumbers[1], rotatorNumbers[0] + rotatorNumbers[1]];
+                rotatorNumbers   = [rotatorNumbers[1], rotatorNumbers[0] + rotatorNumbers[1] + get.id(thePassword[sessions], KEY)];
                 /*
                     Each string will be rotated based on a Fibonacci-like sequence
                     The starting numbers (rotatorNumbers[0] and rotatorNumbers[1]) is a random positive number
                     
                     Example :
                         rotatorNumbers[0] = 5
-                        rotatorNumbers[1] = 2
+                        rotatorNumbers[1] = 2+5
 
-                        Then then the order will be : 5, 2, 7, 9, 16, 25, ...
+                        Then then the order will be : 5, 2, 12, 19, 36, 55, ...
                 */
             }
             sessions--;
+        }
+
+        for (let i = 0; i < thePassword.length; i++) {
+
         }
 
         // 3.3 : The Result
