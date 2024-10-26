@@ -1,6 +1,6 @@
 
 // Step 2 : Pencerminan, Pembalik, Substitusi ganjil-genap (Mirroring-Reverse, Odd-Even Swap)
-const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections) => {
+const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflections, mirrorId) => {
     
         let numberOfEncryptions = Math.ceil(thePassword.length > 0 ? thePassword.length / 4 : 1),
             substitutionLimit   = theTextArr.length - (theTextArr.length % 2);
@@ -10,9 +10,9 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
             If status === false : Step 3  => step 2C => step 2B => step 2A => End
         */
         if (status) {
-            // Step 2A : Pencerminan (mirroring)
+            // Step 2A : Pencerminan (mirroring) => Pembalik (reversing)
             while (numberOfReflections > 0) {
-                theTextArr = theTextArr.map(e => specialGet.nilaiCermin(e)).reverse();
+                theTextArr = theTextArr.map(e => doMirroring(e, mirrorId, status)).reverse();
                 numberOfReflections--;
             }
             
@@ -25,18 +25,18 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
         }
         
         /*
-         If the password is empty, the string will be taken from the chosen mirror to then optimize
-         the rotor number in the following steps
+            If the password is empty, the string will be taken from the chosen mirror to then optimize
+            the rotor number in the following steps
         */
         if (thePassword.length === 0) {
             thePassword = getStringFromMirror();
         }
         
         // Step 3 : Enkripsi - Dekripsi
-            while(numberOfEncryptions > 0) {
-                theTextArr = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
-                numberOfEncryptions--;
-            }
+        while(numberOfEncryptions > 0) {
+            theTextArr = penggeseranVertikal(theTextArr, thePassword, status, numberOfEncryptions + 1); // return [str, str, ....]
+            numberOfEncryptions--;
+        }
 
         if (!status) {
             // Step 2C : Substitusi ganjil-genap (Odd-even swap)
@@ -46,9 +46,9 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
                 }
             }
 
-            // Step 2A : Pencerminan (mirroring)
+            // Step 2A : Pembalik (reversing) => Pencerminan (mirroring)
             while (numberOfReflections > 0) {
-                theTextArr = theTextArr.reverse().map(e => specialGet.nilaiCermin(e));
+                theTextArr = theTextArr.reverse().map(e => doMirroring(e, mirrorId, status));
                 numberOfReflections--;
             }
         }
