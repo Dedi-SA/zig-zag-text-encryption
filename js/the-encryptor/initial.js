@@ -3,7 +3,7 @@ const maxPassword = 20,
       maxNumberOfReflection = 100;
 
 // Step 1 : Filtering & Fixing
-const ZZTE = (theText, thePassword, status, numberOfReflections) => {
+const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
     if (!is.str(theText)) {
         invArg('ZZTE()');
         console.log('The input must be string.');
@@ -22,6 +22,11 @@ const ZZTE = (theText, thePassword, status, numberOfReflections) => {
         console.log('Number of Reflections must be a number.');
         return '';
     }
+    else if (!is.number(mirrorId) || mirrorId < 0 || mirrorId >= mirrorBox.length) {
+        invArg('ZZTE()');
+        console.log('mirrorId is invalid');
+        return '';
+    }
     else {
         // Jika maxNumberOfReflection melebihi batas, maka yang akan digunakan adalah sisa hasil bagi dari nilaiMax
         // When maxNumberOfReflection exceed the limit, then the remainder will be used
@@ -37,6 +42,6 @@ const ZZTE = (theText, thePassword, status, numberOfReflections) => {
         // If the password is longer than the limit, only the first 20 characters will be used
         thePassword = thePassword.length <= maxPassword ? thePassword : thePassword.slice(0, maxPassword);
 
-        return mulaiEnkripsiDekripsi([...theText], thePassword, status, numberOfReflections);
+        return mulaiEnkripsiDekripsi([...theText], thePassword, status, numberOfReflections, mirrorId);
     }
 };
