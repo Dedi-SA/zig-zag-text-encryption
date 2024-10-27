@@ -64,3 +64,23 @@ const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
         return mulaiEnkripsiDekripsi([...theText], thePassword, status, numberOfReflections, mirrorId);
     }
 };
+
+String.prototype.zzte = function(thePassword, status, numberOfReflections, mirrorId) {
+    return ZZTE(this.toString(), thePassword, status, numberOfReflections, mirrorId);
+};
+
+String.prototype.zzte_enc = function(thePassword, numberOfReflections, mirrorId) {
+    return ZZTE(this.toString(), thePassword, true, numberOfReflections, mirrorId);
+};
+
+String.prototype.zzte_dec = function(thePassword, numberOfReflections, mirrorId) {
+    return ZZTE(this.toString(), thePassword, false, numberOfReflections, mirrorId);
+};
+
+String.prototype.zzteTest_enc = function() {
+    return ZZTE(this.toString(), '', true, 1, 1);
+};
+
+String.prototype.zzteTest_dec = function() {
+    return ZZTE(this.toString(), '', false, 1, 1);
+};
