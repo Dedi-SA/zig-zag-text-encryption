@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zig Zag Text Encryption</title>
+    <link rel="stylesheet" href="./css/default-web-display.css"> <!-- Main style -->
+</head>
+<body>
+    <img title="Enkripsi Dekripsi" id="logo-utama" alt="Enkripsi Dekripsi" src="">
+    <div id="halaman_utama">
+        <div id="pengaturan">
+            <div class="pengaturan-container"> <!-- Enkripsi / Dekripsi -->
+                <div class="pengaturan-keterangan">
+                    Enkripsi / Dekripsi
+                </div>
+                <div class="pengaturan-input">
+                    <select id="tempatStatusEnkripsi" class="value-change double-click">
+                        <option value="enkripsi">Enkripsi</option>
+                        <option value="dekripsi">Dekripsi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="pengaturan-container"> <!-- Password -->
+                <div class="pengaturan-keterangan">
+                    Password
+                </div>
+                <div class="pengaturan-input">
+                    <input type="text" id="tempatPassword" class="password-input" placeholder="password (opsional)" maxlength="20" spellcheck="false">
+                </div>
+            </div>
+            <div class="pengaturan-container"> <!-- Jenis Cermin -->
+                <div class="pengaturan-keterangan">
+                    Jenis Cermin
+                </div>
+                <div class="pengaturan-input">
+                    <select id="tempatJenisCermin" class="value-change">
+                    </select>
+                </div>
+            </div>
+            <div class="pengaturan-container"> <!-- Jumlah Refleksi -->
+                <div class="pengaturan-keterangan">
+                    Jumlah Refleksi
+                </div>
+                <div class="pengaturan-input">
+                    <select id="tempatJumlahRefleksi" class="value-change">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="tempatInput-container"> <!-- Input -->
+            <input type="text" class="input value-input" id="tempatInput" placeholder="Masukkan teks anda" spellcheck="false">
+        </div>
+        <div id="tempatOutput-container"> <!-- Output -->
+            <input type="text" class="output value-change" id="tempatOutput" placeholder="Hasil" spellcheck="false" disabled="true">
+            <span id="tempatInfo"></span>
+        </div>
+    </div>
+
+    <!-- General Functions and Variable -->
+    <script src="./js/general-variable/general-string.js"></script> <!-- Declaring general string -->
+    <script src="./js/general-functions/warning-invalid-argument.js"></script> <!-- Invalid argument warning -->
+    <script src="./js/general-functions/is.js"></script> <!-- Is -->
+    <script src="./js/general-functions/gets.js"></script> <!-- Gets -->
+    <script src="./js/general-functions/no-duplicate.js"></script> <!-- noDuplicate() function -->
+    
+    <!-- Generating image logo using base64 code -->
+    <script src="./images/zig-zag-text-encryptor-logo.js"></script>
+
+    <!-- The Encryptor -->
+    <script src="./js/the-encryptor/rules.js"></script> <!-- General rule setting -->
+    <script src="./js/the-encryptor/functions.js"></script> <!-- Required Functions -->
+    <script src="./js/the-encryptor/key.js"></script> <!-- KEY -->
+    <script src="./js/the-encryptor/mirrorBox.js"></script> <!-- Mirror Box -->
+    <script src="./js/the-encryptor/encryptor.js"></script> <!-- Main Engine -->
+    <script src="./js/the-encryptor/initial.js"></script> <!-- Engine Starter -->
+
+    <!-- Web page support -->
+    <script src="./js/web-page-support/generating-mirror-type-inner-html.js"></script> <!-- Generate inner html mirror type -->
+    <script src="./js/web-page-support/generating-reflection-number-inner-html.js"></script> <!-- Generate inner html reflection number -->
+    <script src="./js/web-page-support/warning-result-contain-space-char.js"></script> <!-- Warning, the result contain space char -->
+    <script src="./js/web-page-support/event-listeners.js"></script> <!-- Input detected -->
+    <script>
+        get.element('#tempatInput').focus();
+    </script>
+
+</body>
+</html>
