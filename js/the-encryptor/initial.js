@@ -6,7 +6,8 @@ const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
     if (!is.str(theText)) {
         invArg('ZZTE()');
         console.log('"theText" should be a string.');
-        console.log(`The input : ${typeof theText}`);
+        console.log(`The input type : ${typeof theText}`);
+        console.log('The input length : ' + theText.length);
         return '';
     }
     // If 'theText' is empty string, then there is no encryption
@@ -17,7 +18,7 @@ const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
     else if (!is.str(thePassword)) {
         invArg('ZZTE()');
         console.log('"thePassword" should be a string.');
-        console.log(`The input : ${typeof thePassword}`);
+        console.log(`The input : ${thePassword} ${typeof thePassword}`);
         return '';
     }
     // If 'numberOfReflections' is not a number or number less than 1
