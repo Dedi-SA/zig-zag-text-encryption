@@ -5,7 +5,8 @@ const get = {
             else {
                 invArg('get.id()');
                 console.log(`theString : ${theString} (${typeof theString})`)
-                console.log(`theReference : ${theReference} (${typeof theReference})`);
+                console.log(`theReference type : ${typeof theReference}`);
+                console.log(`theReference length : ${theReference.length}`);
             }
         },
 
