@@ -85,11 +85,7 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
             }
             sessions--;
         }
-
-        for (let i = 0; i < thePassword.length; i++) {
-
-        }
-
+        
         // 3.3 : The Result
         return theTextArr;
     };
