@@ -3,7 +3,8 @@
 const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
     if (!is.str(theText)) {
         invArg('ZZTE()');
-        console.log('The input must be string.');
+        console.log('"theText" should be a string.');
+        console.log(`The input : ${typeof theText}`);
         return '';
     }
     else if(theText.length === 0) {
@@ -11,17 +12,34 @@ const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
     }
     else if (!is.str(thePassword)) {
         invArg('ZZTE()');
-        console.log('The password must be string.');
+        console.log('"thePassword" should be a string.');
+        console.log(`The input : ${typeof thePassword}`);
         return '';
     }
     else if (!is.number(numberOfReflections)) {
         invArg('ZZTE()');
-        console.log('Number of Reflections must be a number.');
+        console.log('"numberOfReflections" should be a number.');
+        console.log(`The input : ${typeof numberOfReflections}`)
         return '';
     }
-    else if (!is.number(mirrorId) || mirrorId < 0 || mirrorId >= mirrorBox.length) {
+    else if (!is.number(mirrorId)) {
         invArg('ZZTE()');
-        console.log('mirrorId is invalid');
+        console.log('"mirrorId" should be a number.');
+        console.log(`The input : ${typeof mirrorId}`)
+        return '';
+    }
+    else if (mirrorId < 0 || mirrorId >= mirrorBox.length) {
+        invArg('ZZTE()');
+        console.log('"mirrorId" is invalid.');
+
+        if (mirrorBox.length === 1) {
+            console.log(`It should be '0' because there is just 1 mirror detected.`);
+        }
+        else {
+            console.log(`It should be '0' to ${mirrorBox.length - 1}`);
+        }
+
+        console.log(`The input : ${mirrorId}`)
         return '';
     }
     else {
@@ -34,9 +52,13 @@ const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
             console.log('The number of reflections must not exceed ' + reflectionMaxNumber + ', otherwise your results may not be as expected.');
             console.log('Your Encryption still safe, no problem.');
         }
+        
+        /*
+            Bila panjang password melebihi batas, maka hanya diambil sebanyak batas yang ditentukan (passwordMaxLength) dimulai dari depan
 
-        // Bila panjang password melebihi batas, maka hanya 20 karakter pertama yang akan digunakan
-        // If the password is longer than the limit, only the first 20 characters will be used
+            If the password length exceeds the limit, only the number of characters up to the specified limit (passwordMaxLength)
+            will be taken, starting from the beginning.
+        */
         thePassword = thePassword.length <= passwordMaxLength ? thePassword : thePassword.slice(0, passwordMaxLength);
 
         return mulaiEnkripsiDekripsi([...theText], thePassword, status, numberOfReflections, mirrorId);
