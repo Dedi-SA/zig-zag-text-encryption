@@ -1,6 +1,3 @@
-// Rule
-const maxPassword = 20,
-      maxNumberOfReflection = 100;
 
 // Step 1 : Filtering & Fixing
 const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
@@ -28,19 +25,19 @@ const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
         return '';
     }
     else {
-        // Jika maxNumberOfReflection melebihi batas, maka yang akan digunakan adalah sisa hasil bagi dari nilaiMax
-        // When maxNumberOfReflection exceed the limit, then the remainder will be used
-        if (numberOfReflections > maxNumberOfReflection) {
+        // Jika reflectionMaxNumber melebihi batas, maka yang akan digunakan adalah sisa hasil bagi dari nilaiMax
+        // When reflectionMaxNumber exceed the limit, then the remainder will be used
+        if (numberOfReflections > reflectionMaxNumber) {
 
-            numberOfReflections = Math.ceil(numberOfReflections % maxNumberOfReflection);
+            numberOfReflections = Math.ceil(numberOfReflections % reflectionMaxNumber);
 
-            console.log('The number of reflections must not exceed ' + maxNumberOfReflection + ', otherwise your results may not be as expected.');
+            console.log('The number of reflections must not exceed ' + reflectionMaxNumber + ', otherwise your results may not be as expected.');
             console.log('Your Encryption still safe, no problem.');
         }
 
         // Bila panjang password melebihi batas, maka hanya 20 karakter pertama yang akan digunakan
         // If the password is longer than the limit, only the first 20 characters will be used
-        thePassword = thePassword.length <= maxPassword ? thePassword : thePassword.slice(0, maxPassword);
+        thePassword = thePassword.length <= passwordMaxLength ? thePassword : thePassword.slice(0, passwordMaxLength);
 
         return mulaiEnkripsiDekripsi([...theText], thePassword, status, numberOfReflections, mirrorId);
     }
