@@ -34,7 +34,7 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
         
         // Step 3 : Enkripsi - Dekripsi
         while(numberOfEncryptions > 0) {
-            theTextArr = penggeseranVertikal(theTextArr, thePassword, status, thePassword.length - 1); // return [str, str, ....]
+            theTextArr = rotatorSessions(theTextArr, thePassword, status, thePassword.length - 1); // return [str, str, ....]
             numberOfEncryptions--;
         }
 
@@ -58,7 +58,7 @@ const mulaiEnkripsiDekripsi = (theTextArr, thePassword, status, numberOfReflecti
     },
 
     // Tahap 3 : Enkripsi - Dekripsi
-    penggeseranVertikal = (theTextArr, thePassword, status, sessions) => {
+    rotatorSessions = (theTextArr, thePassword, status, sessions) => {
         let rotatorNumbers = getRotatorNumbers(theTextArr, thePassword, sessions); // return : [number, number]
         
         while (sessions > 0) {
