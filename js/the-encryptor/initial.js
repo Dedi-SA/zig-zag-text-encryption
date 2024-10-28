@@ -1,6 +1,15 @@
 
+zzteValidationResult = zzteValidation();
+
 // Step 1 : Filtering & Fixing
 const ZZTE = (theText, thePassword, status, numberOfReflections, mirrorId) => {
+
+    // If validation status is false
+    if (!zzteValidationResult.theStatus) {
+        console.log('The program detected some issues.')
+        console.log('Type "zzteValidationResult.theIssues" for more details.')
+        return '';
+    }
 
     // If 'theText' is not a string
     if (!is.str(theText)) {
