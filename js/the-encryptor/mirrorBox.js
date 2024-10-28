@@ -42,18 +42,17 @@
 
     const   isValidMirrorBox = theMirrorBox => {
                 if (Array.isArray(theMirrorBox) && theMirrorBox.length > 0) {
-
-                    let status = [true, []];
-
+                    
+                    // Checking every element of mirrorBox
+                    // When there is found one element is invalid, then theMirrorBox also invalid
                     for(let i = 0; i < theMirrorBox.length; i++) {
                         if (isValidKey(theMirrorBox[i]) === false) {
-                            status[0] = false;
-                            status[1].push(i);
+                            return false;
                         }
                     }
-                    return status;
+                    return true;
                 }
                 else {
-                    return [false, []];
+                    return false;
                 }
             }
