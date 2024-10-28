@@ -40,13 +40,13 @@
             and the function will return : [true, []]
         */
 
-    const   isValidMirrorBox = theMirrorBox => {
-                if (Array.isArray(theMirrorBox) && theMirrorBox.length > 0) {
+    const   isValidMirrorBox = () => {
+                if (Array.isArray(mirrorBox) && mirrorBox.length > 0) {
                     
                     // Checking every element of mirrorBox
-                    // When there is found one element is invalid, then theMirrorBox also invalid
-                    for(let i = 0; i < theMirrorBox.length; i++) {
-                        if (isValidKey(theMirrorBox[i]) === false) {
+                    // When there is found one element is invalid, then mirrorBox also invalid
+                    for(let i = 0; i < mirrorBox.length; i++) {
+                        if (isValidKey(mirrorBox[i]) === false) {
                             return false;
                         }
                     }
