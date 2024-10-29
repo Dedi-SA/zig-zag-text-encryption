@@ -35,7 +35,7 @@ const get = {
             }
         },
         element: namaElemen => {
-            if (typeof namaElemen === 'string' || namaElemen.length === 0) {
+            if (typeof namaElemen !== 'string' || namaElemen.length === 0) {
                 invArg('get.element()');
                 return '';
             }
