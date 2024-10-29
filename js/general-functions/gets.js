@@ -35,12 +35,19 @@ const get = {
             }
         },
         element: namaElemen => {
-            if (namaElemen.startsWith('.'))
-                return document.getElementsByClassName(namaElemen.slice(1));
-            else if (namaElemen.startsWith('#'))
-                return document.getElementById(namaElemen.slice(1));
-            else
+            if (typeof namaElemen === 'string' || namaElemen.length === 0) {
                 invArg('get.element()');
+                return '';
+            }
+            else if (namaElemen.startsWith('.')) {
+                return document.getElementsByClassName(namaElemen.slice(1));
+            }
+            else if (namaElemen.startsWith('#')) {
+                return document.getElementById(namaElemen.slice(1));
+            }
+            else {
+                return document.getElementsByTagName(namaElemen);
+            }
         },
         capitalLetters: () => {
             return generalString.slice(generalString.indexOf('A'), generalString.indexOf('Z') + 1)
